@@ -1,0 +1,361 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Node Starter",
+    "version": "0.1.0",
+    "description": "Node Starter OpenAPI definition",
+    "contact": {
+      "name": "Ali Mehasin",
+      "url": "alimehasin.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+        "summary": "Register",
+        "operationId": "post-users-register",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/login-response"
+          }
+        },
+        "description": "Registration endpoint",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "username": "sami",
+                    "password": "password",
+                    "firstName": "Sami",
+                    "lastName": "Adam",
+                    "email": "samiadam@example.com"
+                  }
+                },
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "email": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              },
+              "examples": {}
+            }
+          },
+          "description": "Registration data"
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "Login",
+        "operationId": "post-users-login",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/login-response"
+          }
+        },
+        "description": "Login endpoint returning JWT tokens",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "username": "sami",
+                    "password": "password"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Login via username and password"
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/users/profile": {
+      "get": {
+        "summary": "Profile",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "username": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "firstName": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "email": {}
+                  },
+                  "required": [
+                    "id",
+                    "username",
+                    "firstName",
+                    "lastName"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "id": "f6dceef6-058b-4803-9a32-2d6c98e65f57",
+                      "username": "sami",
+                      "firstName": "Sami",
+                      "lastName": "Adam",
+                      "email": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-users-profile",
+        "description": "Get your profile information"
+      }
+    },
+    "/users/refresh-tokens": {
+      "post": {
+        "summary": "Tokens Refresh",
+        "operationId": "post-users-refresh-tokens",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/login-response"
+          }
+        },
+        "description": "Refresh your JWT tokens",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "refreshToken": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "refreshToken"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY2ZGNlZWY2LTA1OGItNDgwMy05YTMyLTJkNmM5OGU2NWY1NyIsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNjMwNjgyNjMwLCJleHAiOjE2MzA2ODMyMzB9.LbXtVvjjWROPmpgLDEj0RIS5nEUt__bi2qwE6fm28yQ"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "description": "User model",
+        "type": "object",
+        "x-examples": {},
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "username": {
+            "type": "string",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "writeOnly": true
+          },
+          "firstName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "lastName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "minLength": 1
+          },
+          "lastLogin": {
+            "type": "string",
+            "minLength": 1,
+            "format": "date-time",
+            "readOnly": true
+          },
+          "deactivatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "minLength": 1,
+            "readOnly": true
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      }
+    },
+    "securitySchemes": {},
+    "responses": {
+      "login-response": {
+        "description": "Example response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "description": "",
+              "type": "object",
+              "x-examples": {
+                "example-1": {
+                  "tokens": {
+                    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYzZjk3ODdmLTI4NWEtNGMyMS05ZDVjLTc2YTE5Yzc0YjllYyIsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE2MzA2ODUyNjcsImV4cCI6MTYzMDY4NTg2N30.yJF96jVCJDtA70jNRcimH4u5kPVoQpUylh_1zQc0n2I",
+                    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYzZjk3ODdmLTI4NWEtNGMyMS05ZDVjLTc2YTE5Yzc0YjllYyIsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNjMwNjg1MjY3LCJleHAiOjE2MzA3NzE2Njd9.jmo7KFsxp_59mISB3JSyOpoTzJJLpWvuyz8EwGvIIk0"
+                  },
+                  "user": {
+                    "id": "f3f9787f-285a-4c21-9d5c-76a19c74b9ec",
+                    "username": "hami",
+                    "firstName": "Rami",
+                    "lastName": "Adam",
+                    "email": null
+                  }
+                }
+              },
+              "properties": {
+                "tokens": {
+                  "type": "object",
+                  "required": [
+                    "access",
+                    "refresh"
+                  ],
+                  "properties": {
+                    "access": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "refresh": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                "user": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "username",
+                    "firstName",
+                    "lastName"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "username": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "firstName": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "tokens",
+                "user"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
