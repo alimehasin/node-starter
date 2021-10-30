@@ -2,6 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "formulahendry.code-runner"
+    "streetsidesoftware.code-spell-checker"
   ]
 }
