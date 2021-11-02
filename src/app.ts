@@ -27,7 +27,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(secrets.SECRET_KEY));
 
 // Logging
-const format = secrets.ENVIRONMENT === "development" ? "dev" : "tiny";
+const format =
+  secrets.ENVIRONMENT === "development"
+    ? "dev"
+    : "[:date[clf]] :method :url :status :res[content-length] - :response-time ms";
 app.use(morgan(format));
 
 // Authentication
