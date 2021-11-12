@@ -1,13 +1,9 @@
-import http from "http";
 import "./config";
 import app from "./app";
 import { secrets, crons } from "../utils";
 
-// Create the server
-const server = http.createServer(app);
-
 // Start listening
-server.listen(secrets.PORT, () => {
+const server = app.listen(secrets.PORT, () => {
   // Crons
   crons.start();
 
