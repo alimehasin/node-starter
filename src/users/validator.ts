@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 
 export const fields = {
-  username: z.string().min(2).max(8),
+  username: z.string().min(2).max(32),
   password: z.string().min(8).max(32),
 };
 
