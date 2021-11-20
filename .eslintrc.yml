@@ -27,6 +27,7 @@ settings:
       project: "./tsconfig.json"
 
 rules:
+  no-unused-vars: off
   capitalized-comments: ["warn", "always"]
   class-methods-use-this: "off"
   arrow-body-style: "off"
