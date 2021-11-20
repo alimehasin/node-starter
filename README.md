@@ -52,3 +52,4 @@ A service is an API between a atom and the database
    3. delete **.env.example** and copy its content to **.env**
    4. ask you for project **Name**, **Version**, **Description** and **Author** and write them to package.json
 2. `npm run create atom <name>` to create a new atom
+3. `npm run create root-user` to create root user (role=ROOT)
