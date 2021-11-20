@@ -4,6 +4,6 @@ import Controller from "./controller";
 const router = Router();
 const controller = new Controller();
 
-// Define your routes hear
+// Define your routes here
 
 export default router;
