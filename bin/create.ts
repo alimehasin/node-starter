@@ -8,7 +8,7 @@ program
   .command("atom")
   .argument("<name>", "section name")
   .action(async (name) => {
-    const dir = `src/${name}`;
+    const dir = `src/atoms/${name}`;
 
     // Create the folder
     fs.mkdirSync(dir);
