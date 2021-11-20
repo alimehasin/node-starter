@@ -1,6 +1,6 @@
 import "./config";
 import app from "./app";
-import { secrets, crons } from "../utils";
+import { secrets, crons } from "./utils";
 
 // Start listening
 const server = app.listen(secrets.PORT, () => {

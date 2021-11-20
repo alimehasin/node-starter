@@ -5,9 +5,9 @@ import helmet from "helmet";
 import morgan from "morgan";
 import passport from "passport";
 import swaggerUi from "swagger-ui-express";
-import routers from "./routers";
-import { secrets, errorHandler } from "../utils";
-import * as strategies from "../utils/auth";
+import router from "./atoms/router";
+import { secrets, errorHandler } from "./utils";
+import * as strategies from "./utils/auth";
 import specs from "../openapi.json";
 
 // Initialize the application
@@ -45,7 +45,7 @@ if (secrets.ENVIRONMENT === "development") {
 }
 
 // Routers
-app.use(routers);
+app.use(router);
 
 // Error handler
 app.use(errorHandler);
