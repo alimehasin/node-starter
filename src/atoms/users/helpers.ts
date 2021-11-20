@@ -1,8 +1,8 @@
 import { User } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import Service from "./service";
-import prisma from "../prisma";
 import { LoginResponse } from "./types";
+import prisma from "../../prisma";
 import { secrets, SimpleError } from "../../utils";
 
 export const loginObject = (user: User): LoginResponse => ({

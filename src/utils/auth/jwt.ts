@@ -4,7 +4,7 @@ import { flow } from "lodash/fp";
 import jwt from "jsonwebtoken";
 import { SimpleError } from "..";
 import * as secrets from "../secrets";
-import prisma from "../../src/prisma";
+import prisma from "../../prisma";
 
 const getAccessJwtFromHeaders = (req: Request): string | null => {
   // 1. Get the authorization header

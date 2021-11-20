@@ -2,7 +2,7 @@ import { Command } from "commander";
 import inquirer from "inquirer";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
-import { fields } from "../src/users/validator";
+import { fields } from "../atoms/users/validator";
 
 const program = new Command();
 const prisma = new PrismaClient();
