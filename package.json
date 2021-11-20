@@ -13,16 +13,9 @@
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
-  "bin": "dist/src/server.js",
-  "pkg": {
-    "scripts": "dist/*",
-    "assets": "node_modules/swagger-ui-dist/*.(css|js)",
-    "outputPath": "execs"
-  },
   "scripts": {
     "dev": "nodemon --files src/server.ts",
     "build": "tsc",
-    "build:exec": "npm run build && pkg .",
     "start": "node ./dist/src/server.js",
     "test": "jest --runInBand",
     "format": "prettier --write .",
@@ -51,7 +44,6 @@
     "morgan": "^1.10.0",
     "passport": "^0.5.0",
     "passport-strategy": "^1.0.0",
-    "pkg": "^5.4.1",
     "swagger-ui-express": "^4.1.6",
     "zod": "^3.11.6"
   },
