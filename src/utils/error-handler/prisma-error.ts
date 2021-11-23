@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { ENVIRONMENT } from "../secrets";
 
 export default async (
   req: Request,
@@ -11,5 +12,8 @@ export default async (
     return res.status(404).json({ detail: error.message });
   }
 
-  return res.status(400).json({ detail: "DB operation failed." });
+  return res.status(400).json({
+    detail: "DB operation failed.",
+    error: ENVIRONMENT === "development" ? error : null,
+  });
 };

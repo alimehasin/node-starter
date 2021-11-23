@@ -8,7 +8,6 @@ export default async (
   error: ErrorRequestHandler,
   req: Request,
   res: Response,
-  // eslint-disable-next-line no-unused-vars
   next: NextFunction
 ) => {
   // eslint-disable-next-line no-console
