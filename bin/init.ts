@@ -1,5 +1,5 @@
 import fs from "fs";
-import inquirer from "inquirer";
+import { questions } from "./utils";
 import project from "../package.json";
 
 // Delete open-source files
@@ -12,29 +12,8 @@ fs.writeFileSync("README.md", "");
 // Create .env file from .env.example
 fs.renameSync(".env.example", ".env");
 
-(async () => {
-  const answers = await inquirer.prompt([
-    {
-      name: "name",
-      type: "input",
-      message: "Project Name:",
-    },
-    {
-      name: "version",
-      type: "input",
-      message: "Version:",
-    },
-    {
-      name: "description",
-      type: "input",
-      message: "Description:",
-    },
-    {
-      name: "author",
-      type: "input",
-      message: "Author:",
-    },
-  ]);
+async function main() {
+  const answers = await questions.getProjectInfo();
 
   const newProject = {
     ...project,
@@ -45,5 +24,8 @@ fs.renameSync(".env.example", ".env");
   delete newProject.repository;
   delete newProject.keywords;
 
+  // Write the new JSON into package.json
   fs.writeFileSync("package.json", JSON.stringify(newProject));
-})();
+}
+
+main();

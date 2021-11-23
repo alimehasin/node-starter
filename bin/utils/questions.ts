@@ -32,3 +32,28 @@ export const getRootUserInfo = (prisma: PrismaClient) => {
     },
   ]);
 };
+
+export const getProjectInfo = () => {
+  return inquirer.prompt([
+    {
+      name: "name",
+      type: "input",
+      message: "Project Name:",
+    },
+    {
+      name: "version",
+      type: "input",
+      message: "Version:",
+    },
+    {
+      name: "description",
+      type: "input",
+      message: "Description:",
+    },
+    {
+      name: "author",
+      type: "input",
+      message: "Author:",
+    },
+  ]);
+};
