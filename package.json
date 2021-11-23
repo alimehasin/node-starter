@@ -22,7 +22,6 @@
     "lint": "eslint --ext .ts .",
     "lint-staged": "lint-staged",
     "prepare": "husky install",
-    "command": "ts-node utils/commands.ts",
     "init": "npm i && ts-node bin/init.ts && prettier --write package.json",
     "create": "ts-node bin/create.ts"
   },
