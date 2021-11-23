@@ -12,9 +12,6 @@ fs.writeFileSync("README.md", "");
 // Create .env file from .env.example
 fs.renameSync(".env.example", ".env");
 
-// Delete .git
-fs.unlinkSync(".git");
-
 async function main() {
   const answers = await questions.getProjectInfo();
 
