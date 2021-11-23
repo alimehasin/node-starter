@@ -39,3 +39,4 @@ rules:
 globals:
   Action: readonly
   Subject: readonly
+  Environment: readonly

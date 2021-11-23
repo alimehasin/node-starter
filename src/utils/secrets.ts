@@ -8,7 +8,7 @@ export const { SECRET_KEY, DATABASE_URL } = pe;
 
 export const PORT = pe.PORT || 3000;
 
-export const ENVIRONMENT = pe.ENVIRONMENT || "production";
+export const ENVIRONMENT = (pe.ENVIRONMENT as Environment) || "production";
 
 export const JWT_ACCESS_TOKEN_LIFETIME = pe.JWT_ACCESS_TOKEN_LIFETIME || "1h";
 
