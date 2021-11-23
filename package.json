@@ -23,7 +23,7 @@
     "lint-staged": "lint-staged",
     "prepare": "husky install",
     "init": "npm i && ts-node bin/init.ts && prettier --write package.json",
-    "create": "ts-node bin/create.ts"
+    "make": "ts-node bin/make.ts"
   },
   "dependencies": {
     "@casl/ability": "^5.4.3",
