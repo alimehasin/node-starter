@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "NodeJS starter",
   "author": "Ali Mehasin",
-  "license": "GPL-3.0 License",
+  "license": "GPL-3.0",
   "repository": {
     "url": "https://github.com/alimehasin/node-starter"
   },
