@@ -22,7 +22,7 @@
     "lint": "eslint --ext .ts .",
     "lint-staged": "lint-staged",
     "prepare": "husky install",
-    "initialize": "yarn && ts-node bin/init.ts && prettier --write package.json",
+    "initialize": "yarn && ts-node bin/initialize.ts && prettier --write package.json",
     "make": "ts-node bin/make.ts"
   },
   "dependencies": {
