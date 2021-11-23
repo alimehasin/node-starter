@@ -1,8 +1,5 @@
 import { Ability, AbilityBuilder, AbilityClass } from "@casl/ability";
 
-export type Action = "read" | "create" | "update" | "delete" | "manage";
-export type Subject = "User" | "all";
-
 export default (user: any) => {
   const AppAbility = Ability as AbilityClass<Ability<[Action, Subject]>>;
 
