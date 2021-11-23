@@ -1,14 +1,20 @@
 import "./config";
 import app from "./app";
-import { secrets, crons } from "./utils";
+import { crons } from "./utils";
+import { PORT, ENVIRONMENT } from "./utils/secrets";
 
 // Start listening
-const server = app.listen(secrets.PORT, () => {
+const server = app.listen(PORT, () => {
   // Crons
   crons.start();
 
-  // eslint-disable-next-line no-console
-  console.log(`💻 App listening on port ${secrets.PORT}`);
+  if (ENVIRONMENT === "development") {
+    // eslint-disable-next-line no-console
+    console.log(`💻 Started on http://localhost:${PORT}`);
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(`💻 Started on port ${PORT}`);
+  }
 });
 
 server.on("close", async () => {
