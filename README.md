@@ -46,7 +46,7 @@ A service is an API between a atom and the database
 
 ## CLI
 
-1. `npm run init` for initialization this command will
+1. `npm run initialize` for initialization this command will
    1. delete **LICENSE** and **CONTRIBUTING.md** files
    2. empty **README.md** file
    3. delete **.env.example** and copy its content to **.env**
