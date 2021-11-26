@@ -9,11 +9,11 @@ export const makeEmptyAtom = (name: string) => {
   fs.mkdirSync(dir);
 
   // Copy files
-  fs.copyFileSync("bin/files/router.ts", `${dir}/router.ts`);
-  fs.copyFileSync("bin/files/controller.ts", `${dir}/controller.ts`);
-  fs.copyFileSync("bin/files/validator.ts", `${dir}/validator.ts`);
-  fs.copyFileSync("bin/files/service.ts", `${dir}/service.ts`);
-  fs.copyFileSync("bin/files/index.ts", `${dir}/index.ts`);
+  fs.copyFileSync("bin/atom-empty/router.ts", `${dir}/router.ts`);
+  fs.copyFileSync("bin/atom-empty/controller.ts", `${dir}/controller.ts`);
+  fs.copyFileSync("bin/atom-empty/validator.ts", `${dir}/validator.ts`);
+  fs.copyFileSync("bin/atom-empty/service.ts", `${dir}/service.ts`);
+  fs.copyFileSync("bin/atom-empty/index.ts", `${dir}/index.ts`);
 };
 
 export const createRootUser = async (
