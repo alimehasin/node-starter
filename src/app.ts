@@ -16,7 +16,7 @@ const app: Application = express();
 // Security headers
 app.use(helmet());
 
-// Compress requests
+// Compress the response
 app.use(compression());
 
 // Parse incoming requests with JSON payload
