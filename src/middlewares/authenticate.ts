@@ -3,7 +3,7 @@ import passport from "passport";
 
 export default ({ tolerant = false }) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    const a = passport.authenticate(
+    passport.authenticate(
       tolerant ? "jwt-tolerant" : "jwt",
       { session: false },
       (error, user, info) => {
