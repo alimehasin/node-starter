@@ -34,10 +34,7 @@ const verifyAccessJwtForAuth = (token: string): string => {
   const payload: any = jwt.verify(token, secrets.SECRET_KEY);
 
   if (payload.type !== "ACCESS") {
-    throw new SimpleError(
-      400,
-      "Unable to login with the provided credentials."
-    );
+    throw new SimpleError(400, "Unable to login with the provided credentials.");
   }
 
   return payload.id;

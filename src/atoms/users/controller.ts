@@ -15,10 +15,7 @@ export default class Controller {
 
     // Check for password
     if (!user || !(await bcrypt.compare(data.password, user.password))) {
-      throw new SimpleError(
-        400,
-        "Unable to login with the provided credentials."
-      );
+      throw new SimpleError(400, "Unable to login with the provided credentials.");
     }
 
     // Check for account activation state
