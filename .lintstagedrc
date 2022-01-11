@@ -1,6 +1,0 @@
-{
-  "**/*.{js,ts}!bin": [
-    "npm run format:fix",
-    "npm run lint"
-  ]
-}
