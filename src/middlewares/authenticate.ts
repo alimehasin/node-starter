@@ -1,0 +1,25 @@
+import type { Request, Response, NextFunction } from "express";
+import passport from "passport";
+
+export default ({ tolerant = false }) =>
+  async (req: Request, res: Response, next: NextFunction) => {
+    const a = passport.authenticate(
+      tolerant ? "jwt-tolerant" : "jwt",
+      { session: false },
+      (error, user, info) => {
+        if (error) {
+          return res.status(500).json({
+            detail: "We have some error in our authentication system please report this",
+          });
+        }
+
+        if (!user && !tolerant) {
+          return res.status(401).json({ detail: "Unable to authenticate the user" });
+        }
+
+        req.user = user;
+
+        return next();
+      }
+    )(req, res, next);
+  };
