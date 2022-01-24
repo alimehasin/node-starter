@@ -11,7 +11,7 @@ export const makeEmptyAtom = (name: string) => {
   // Copy files
   fs.copyFileSync("bin/atom-empty/router.ts", `${dir}/router.ts`);
   fs.copyFileSync("bin/atom-empty/controller.ts", `${dir}/controller.ts`);
-  fs.copyFileSync("bin/atom-empty/validator.ts", `${dir}/validator.ts`);
+  fs.copyFileSync("bin/atom-empty/schemas.ts", `${dir}/schemas.ts`);
   fs.copyFileSync("bin/atom-empty/service.ts", `${dir}/service.ts`);
   fs.copyFileSync("bin/atom-empty/index.ts", `${dir}/index.ts`);
 };
