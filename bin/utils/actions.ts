@@ -2,12 +2,27 @@ import fse from "fs-extra";
 import path from "path";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { anotherField, getFieldInfo } from "./questions";
 
 export const makeAtom = async (name: string, crud = false) => {
   const src = path.join(process.cwd(), crud ? "bin/atom/crud" : "bin/atom/base");
   const dest = path.join(process.cwd(), "src/atoms", `${name}s`);
 
   if (crud) {
+    const fields = [];
+
+    while (true) {
+      const field = await getFieldInfo();
+      fields.push(field);
+      const keep = await anotherField();
+
+      if (!keep.more) {
+        break;
+      }
+    }
+
+    // TODO: Create Prisma model and update schemas
+
     // Exact copy
     const exactCopy = ["index.ts", "middlewares.ts", "router.ts", "schemas.ts"];
     exactCopy.forEach(async (file) => {

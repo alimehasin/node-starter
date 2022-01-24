@@ -57,3 +57,27 @@ export const getProjectInfo = () => {
     },
   ]);
 };
+
+export const getFieldInfo = () => {
+  return inquirer.prompt([
+    {
+      name: "name",
+      type: "input",
+      message: "Field name",
+    },
+    {
+      name: "type",
+      type: "list",
+      choices: ["String", "Int", "Float", "DateTime"],
+      message: "Field name",
+    },
+  ]);
+};
+
+export const anotherField = () => {
+  return inquirer.prompt({
+    name: "more",
+    type: "confirm",
+    message: "Do you want to define more fields",
+  });
+};

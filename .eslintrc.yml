@@ -28,6 +28,8 @@ settings:
 
 rules:
   no-unused-vars: "off"
+  no-await-in-loop: "off"
+  no-constant-condition: "off"
   class-methods-use-this: "off"
   arrow-body-style: "off"
   lines-between-class-members: "off"
