@@ -8,26 +8,22 @@ export const makeAtom = async (name: string, crud = false) => {
   const dest = path.join(process.cwd(), "src/atoms", `${name}s`);
 
   if (crud) {
+    // Exact copy
     const exactCopy = ["index.ts", "middlewares.ts", "router.ts", "schemas.ts"];
     exactCopy.forEach(async (file) => {
       await fse.copy(path.join(src, file), path.join(dest, file));
     });
 
-    // Copy controller.ts
-    const generalController = await fse.readFile(path.join(src, "controller.ts"), {
-      encoding: "utf-8",
+    // Inexact copy
+    const inexactCopy = ["controller.ts", "service.ts"];
+    inexactCopy.forEach(async (file) => {
+      const general = await fse.readFile(path.join(src, file), {
+        encoding: "utf-8",
+      });
+
+      const modified = general.replace(/object/g, name);
+      await fse.writeFile(path.join(dest, file), modified);
     });
-
-    const controller = generalController.replace(/object/g, name);
-    await fse.writeFile(path.join(dest, "controller.ts"), controller);
-
-    // Copy controller.ts
-    const generalService = await fse.readFile(path.join(src, "service.ts"), {
-      encoding: "utf-8",
-    });
-
-    const service = generalService.replace(/object/g, name);
-    await fse.writeFile(path.join(dest, "service.ts"), service);
   } else {
     await fse.copy(src, dest);
   }
