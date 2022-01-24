@@ -1,19 +1,13 @@
-import fs from "fs";
+import fse from "fs-extra";
+import path from "path";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
-export const makeEmptyAtom = (name: string) => {
-  const dir = `src/atoms/${name}`;
+export const makeEmptyAtom = async (name: string) => {
+  const src = path.join(process.cwd(), "bin/atom/base");
+  const dest = path.join(process.cwd(), "src/atoms", name);
 
-  // Create the folder
-  fs.mkdirSync(dir);
-
-  // Copy files
-  fs.copyFileSync("bin/atom-empty/router.ts", `${dir}/router.ts`);
-  fs.copyFileSync("bin/atom-empty/controller.ts", `${dir}/controller.ts`);
-  fs.copyFileSync("bin/atom-empty/schemas.ts", `${dir}/schemas.ts`);
-  fs.copyFileSync("bin/atom-empty/service.ts", `${dir}/service.ts`);
-  fs.copyFileSync("bin/atom-empty/index.ts", `${dir}/index.ts`);
+  await fse.copy(src, dest);
 };
 
 export const createRootUser = async (
