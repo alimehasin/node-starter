@@ -17,26 +17,26 @@ An atom is a single part of the project, atoms can work together to response to 
 
 ## The core components of an atom are
 
-1. Router
-2. Controller
-3. Validator
-4. Service
+1. Schemas
+2. Service
+3. Controller
+4. Router
 
-### Router
+### Schemas
 
-A router routes traffic to the desired function
-
-### Controller
-
-A controller control the logic of a atom, a controller may need **validator** and/or **service**
-
-### Validator
-
-A validator is function that validates the incoming data to ensure that the data is valid
+Schemas are zod schemas that used to validate the incoming data
 
 ### Service
 
 A service is an API between a atom and the database
+
+### Controller
+
+A controller control the logic of a atom, a controller may need **schemas** and/or **service**
+
+### Router
+
+A router routes traffic to the desired function
 
 ## Other files may be provided such as
 
@@ -52,4 +52,5 @@ A service is an API between a atom and the database
    3. delete **.env.example** and copy its content to **.env**
    4. ask you for project **Name**, **Version**, **Description** and **Author** and write them to package.json
 2. `npm run make atom <name>` to make a new atom
-3. `npm run make root-user` to make root user (role=ROOT)
+3. `npm run make atom <name> -crud` to make a new CRUD atom
+4. `npm run make root-user` to make root user (role=ROOT)
