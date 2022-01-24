@@ -11,7 +11,8 @@
     "NodeJS-starter"
   ],
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "schema": "src/prisma/schema.prisma",
+    "seed": "ts-node src/prisma/seed.ts"
   },
   "scripts": {
     "dev": "nodemon --files src/server.ts",

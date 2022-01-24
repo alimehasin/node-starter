@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Prisma, User } from "@prisma/client";
-import prisma from "../../../prisma";
+import prisma from "../../prisma";
 
 export default class Service {
   static reshape = (user: User) => {

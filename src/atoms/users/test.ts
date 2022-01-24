@@ -1,6 +1,6 @@
 import request, { Response } from "supertest";
 import server from "../../server";
-import prisma from "../../../prisma";
+import prisma from "../../prisma";
 
 describe("Test auth system", () => {
   const req = request(server);
