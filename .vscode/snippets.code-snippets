@@ -1,0 +1,7 @@
+{
+  "Controller method": {
+    "prefix": "cm",
+    "body": ["${1:endpoint} = async (req: Request, res: Response) => {${0}};"],
+    "description": "Controller method"
+  }
+}
