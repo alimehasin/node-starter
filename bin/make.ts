@@ -11,13 +11,7 @@ program
   .argument("<name>", "section name")
   .option("-crud", "Create a CRUD atom", false)
   .action(async (name, { Crud }) => {
-    // Create empty atom
-    actions.makeEmptyAtom(name);
-
-    if (Crud) {
-      console.log("TODO: implement crud");
-      console.log("TODO: use inquirer to get information");
-    }
+    actions.makeAtom(name, Crud);
   });
 
 program.command("root-user").action(async () => {
