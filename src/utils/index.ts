@@ -6,5 +6,6 @@ export * as auth from "./auth";
 export * as secrets from "./secrets";
 export * as permissions from "./permissions";
 export * as helpers from "./helpers";
+export * as zod from "./zod";
 
 export { crons, SimpleError, errorHandler };
