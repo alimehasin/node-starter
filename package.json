@@ -24,8 +24,8 @@
     "lint": "eslint --ext .ts .",
     "lint-staged": "lint-staged",
     "prepare": "husky install",
-    "initialize": "yarn && ts-node bin/initialize.ts && prettier --write package.json",
-    "make": "ts-node bin/make.ts"
+    "initialize": "yarn && ts-node bin/commands/initialize.ts && prettier --write package.json",
+    "make": "ts-node bin/commands/make.ts"
   },
   "dependencies": {
     "@casl/ability": "^5.4.3",

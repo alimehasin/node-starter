@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Command } from "commander";
 import { PrismaClient } from "@prisma/client";
-import { questions, actions } from "./utils";
+import { questions, actions } from "../utils";
 
 const program = new Command();
 const prisma = new PrismaClient();

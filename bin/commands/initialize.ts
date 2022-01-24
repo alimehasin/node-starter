@@ -1,6 +1,6 @@
 import fs from "fs";
-import { questions } from "./utils";
-import project from "../package.json";
+import { questions } from "../utils";
+import project from "../../package.json";
 
 // Delete open-source files
 fs.unlinkSync("LICENSE");
