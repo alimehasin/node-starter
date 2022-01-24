@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 
 export const makeAtom = async (name: string, crud = false) => {
   const src = path.join(process.cwd(), crud ? "bin/atom/crud" : "bin/atom/base");
-  const dest = path.join(process.cwd(), "src/atoms", name);
+  const dest = path.join(process.cwd(), "src/atoms", `${name}s`);
 
   if (crud) {
     const exactCopy = ["index.ts", "middlewares.ts", "router.ts", "schemas.ts"];
