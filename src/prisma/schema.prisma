@@ -19,3 +19,10 @@ model User {
   lastLogin     DateTime?
   deactivatedAt DateTime?
 }
+
+model Example {
+  id String @id @default(uuid())
+
+  title String
+  desc  String
+}
