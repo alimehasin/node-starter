@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as validator from "./validator";
+import * as schemas from "./schemas";
 import Service from "./service";
 
 const service = new Service();
