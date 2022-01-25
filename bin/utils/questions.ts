@@ -81,3 +81,19 @@ export const anotherField = () => {
     message: "Do you want to define more fields",
   });
 };
+
+export const getAtomFields = async () => {
+  const fields = [];
+
+  while (true) {
+    const field = await getFieldInfo();
+    fields.push(field);
+    const keep = await anotherField();
+
+    if (!keep.more) {
+      break;
+    }
+  }
+
+  return fields;
+};

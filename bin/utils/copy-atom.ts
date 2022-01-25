@@ -1,10 +1,14 @@
 import path from "path";
 import fse from "fs-extra";
 import addPrismaModel from "./add-prisma-model";
+import { getAtomFields } from "./questions";
 
 export async function crud(name: string, src: string, dest: string) {
+  // Get atom fields
+  const fields = await getAtomFields();
+
   // Add prisma model
-  await addPrismaModel(name);
+  await addPrismaModel(name, fields);
 
   // Exact copy
   const exactCopy = ["index.ts", "middlewares.ts", "router.ts", "schemas.ts"];
