@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Command } from "commander";
 import { PrismaClient } from "@prisma/client";
-import { questions, actions } from "../utils";
+import { actions, inquiries } from "../utils";
 
 const program = new Command();
 const prisma = new PrismaClient();
@@ -16,7 +16,7 @@ program
 
 program.command("root-user").action(async () => {
   // Get information
-  const answers = await questions.getRootUserInfo(prisma);
+  const answers = await inquiries.rootUser(prisma);
 
   // Create root user
   actions.createRootUser(prisma, answers);

@@ -2,7 +2,7 @@ import inquirer from "inquirer";
 import { PrismaClient } from "@prisma/client";
 import { fields as userValidatorFields } from "../../src/atoms/users/validator";
 
-export const getRootUserInfo = (prisma: PrismaClient) => {
+export const rootUser = (prisma: PrismaClient) => {
   return inquirer.prompt([
     // Username
     {
@@ -33,7 +33,7 @@ export const getRootUserInfo = (prisma: PrismaClient) => {
   ]);
 };
 
-export const getProjectInfo = () => {
+export const projectInfo = () => {
   return inquirer.prompt([
     {
       name: "name",
@@ -58,7 +58,7 @@ export const getProjectInfo = () => {
   ]);
 };
 
-export const getFieldInfo = () => {
+export const atomField = () => {
   return inquirer.prompt([
     {
       name: "name",
@@ -74,26 +74,10 @@ export const getFieldInfo = () => {
   ]);
 };
 
-export const anotherField = () => {
+export const addAnotherField = () => {
   return inquirer.prompt({
     name: "more",
     type: "confirm",
     message: "Do you want to define more fields",
   });
-};
-
-export const getAtomFields = async () => {
-  const fields = [];
-
-  while (true) {
-    const field = await getFieldInfo();
-    fields.push(field);
-    const keep = await anotherField();
-
-    if (!keep.more) {
-      break;
-    }
-  }
-
-  return fields;
 };

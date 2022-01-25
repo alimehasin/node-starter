@@ -1,16 +1,16 @@
 import path from "path";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import * as copy from "./copy-atom";
+import { copyCrudAtom, copyBaseAtom } from "./helpers";
 
 export const makeAtom = async (name: string, crud = false) => {
   const src = path.join(process.cwd(), crud ? "bin/atom/crud" : "bin/atom/base");
   const dest = path.join(process.cwd(), "src/atoms", `${name}s`);
 
   if (crud) {
-    await copy.crud(name, src, dest);
+    await copyCrudAtom(name, src, dest);
   } else {
-    copy.base(name, src, dest);
+    copyBaseAtom(name, src, dest);
   }
 };
 
