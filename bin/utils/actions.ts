@@ -25,20 +25,23 @@ export const makeAtom = async (name: string, crud = false) => {
 
     // Exact copy
     const exactCopy = ["index.ts", "middlewares.ts", "router.ts", "schemas.ts"];
-    exactCopy.forEach(async (file) => {
-      await fse.copy(path.join(src, file), path.join(dest, file));
+    const promises: Promise<void>[] = [];
+    exactCopy.map(async (file) => {
+      promises.push(fse.copy(path.join(src, file), path.join(dest, file)));
     });
 
     // Inexact copy
     const inexactCopy = ["controller.ts", "service.ts"];
-    inexactCopy.forEach(async (file) => {
+    inexactCopy.map(async (file) => {
       const general = await fse.readFile(path.join(src, file), {
         encoding: "utf-8",
       });
 
       const modified = general.replace(/object/g, name);
-      await fse.writeFile(path.join(dest, file), modified);
+      promises.push(fse.writeFile(path.join(dest, file), modified));
     });
+
+    await Promise.all(promises);
   } else {
     await fse.copy(src, dest);
   }
