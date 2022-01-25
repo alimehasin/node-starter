@@ -1,23 +1,10 @@
 import path from "path";
 import fse from "fs-extra";
-import { anotherField, getFieldInfo } from "./questions";
 import addPrismaModel from "./add-prisma-model";
 
 export async function crud(name: string, src: string, dest: string) {
-  const fields = [];
-
-  while (true) {
-    const field = await getFieldInfo();
-    fields.push(field);
-    const keep = await anotherField();
-
-    if (!keep.more) {
-      break;
-    }
-  }
-
-  // TODO: Create Prisma model and update schemas
-  addPrismaModel(name, fields);
+  // Add prisma model
+  addPrismaModel(name);
 
   // Exact copy
   const exactCopy = ["index.ts", "middlewares.ts", "router.ts", "schemas.ts"];
