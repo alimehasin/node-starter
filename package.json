@@ -1,14 +1,17 @@
 {
   "name": "node-starter",
   "version": "0.1.0",
-  "description": "NodeJS starter",
+  "description": "Simple node starter with TypeScript and Prisma",
   "author": "Ali Mehasin",
   "license": "GPL-3.0",
   "repository": {
-    "url": "https://github.com/alimehasin/node-starter"
+    "url": "https://github.com/SoftshapeCode/node-starter"
   },
   "keywords": [
-    "NodeJS-starter"
+    "NodeJS-starter",
+    "TypeScript",
+    "Prisma",
+    "Boilerplate"
   ],
   "prisma": {
     "schema": "src/prisma/schema.prisma",
