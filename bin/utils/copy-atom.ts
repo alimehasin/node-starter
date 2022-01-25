@@ -4,7 +4,7 @@ import addPrismaModel from "./add-prisma-model";
 
 export async function crud(name: string, src: string, dest: string) {
   // Add prisma model
-  addPrismaModel(name);
+  await addPrismaModel(name);
 
   // Exact copy
   const exactCopy = ["index.ts", "middlewares.ts", "router.ts", "schemas.ts"];

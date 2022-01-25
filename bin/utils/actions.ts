@@ -8,7 +8,7 @@ export const makeAtom = async (name: string, crud = false) => {
   const dest = path.join(process.cwd(), "src/atoms", `${name}s`);
 
   if (crud) {
-    copy.crud(name, src, dest);
+    await copy.crud(name, src, dest);
   } else {
     copy.base(name, src, dest);
   }

@@ -11,7 +11,7 @@ program
   .argument("<name>", "section name")
   .option("-crud", "Create a CRUD atom", false)
   .action(async (name, { Crud }) => {
-    actions.makeAtom(name, Crud);
+    await actions.makeAtom(name, Crud);
   });
 
 program.command("root-user").action(async () => {
