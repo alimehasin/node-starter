@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import { PrismaClient } from "@prisma/client";
-import { fields } from "../../src/atoms/users/validator";
+import { fields as userValidatorFields } from "../../src/atoms/users/validator";
 
 export const getRootUserInfo = (prisma: PrismaClient) => {
   return inquirer.prompt([
@@ -10,7 +10,7 @@ export const getRootUserInfo = (prisma: PrismaClient) => {
       type: "input",
       message: "Username",
       validate: async (value: string) => {
-        const username = fields.username.parse(value);
+        const username = userValidatorFields.username.parse(value);
 
         if (await prisma.user.findUnique({ where: { username } })) {
           return "User with this username already exists.";
@@ -26,7 +26,7 @@ export const getRootUserInfo = (prisma: PrismaClient) => {
       type: "password",
       message: "Password",
       validate: (value: string) => {
-        fields.password.parse(value);
+        userValidatorFields.password.parse(value);
         return true;
       },
     },
