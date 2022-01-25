@@ -1,18 +1,21 @@
 import path from "path";
 import fse from "fs-extra";
-import addPrismaModel from "./add-prisma-model";
 import { getAtomFields } from "./questions";
+import addPrismaModel from "./add-prisma-model";
+import copySchemas from "./copy-schemas";
 
 export async function crud(name: string, src: string, dest: string) {
   // Get atom fields
   const fields = await getAtomFields();
 
-  // Add prisma model
-  await addPrismaModel(name, fields);
+  // List of promises
+  const promises: Promise<void>[] = [
+    addPrismaModel(name, fields),
+    copySchemas(src, dest, fields),
+  ];
 
   // Exact copy
-  const exactCopy = ["index.ts", "middlewares.ts", "router.ts", "schemas.ts"];
-  const promises: Promise<void>[] = [];
+  const exactCopy = ["index.ts", "middlewares.ts", "router.ts"];
   exactCopy.map(async (file) => {
     promises.push(fse.copy(path.join(src, file), path.join(dest, file)));
   });

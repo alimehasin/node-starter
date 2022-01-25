@@ -5,3 +5,5 @@ LICENSE
 .env
 
 openapi.json
+
+bin/atom/crud/schemas.ts

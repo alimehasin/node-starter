@@ -5,7 +5,9 @@ export const query = z.object({
   ...zod.pagination,
 });
 
-export const create = z.object({});
+export const create = z.object({
+//_0
+});
 
 export const update = create.partial();
 
