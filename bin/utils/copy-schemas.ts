@@ -16,7 +16,7 @@ export default async function copySchemas(src: string, dest: string, fields: any
     }
   });
 
-  // schemas = schemas.slice(0, -1);
+  schemas = schemas.slice(0, -1);
   content = content.replace("//_0", schemas);
   await fse.writeFile(path.join(dest, "schemas.ts"), content, { encoding: "utf-8" });
 }
