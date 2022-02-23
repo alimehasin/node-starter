@@ -1,5 +1,5 @@
 import fs from "fs";
-import { questions } from "../utils";
+import { inquiries } from "../utils";
 import project from "../../package.json";
 
 // Delete open-source files
@@ -13,7 +13,7 @@ fs.writeFileSync("README.md", "");
 fs.renameSync(".env.example", ".env");
 
 async function main() {
-  const answers = await questions.getProjectInfo();
+  const answers = await inquiries.projectInfo();
 
   const newProject = {
     ...project,
