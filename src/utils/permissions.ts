@@ -1,13 +1,8 @@
-import { User, Example } from "@prisma/client";
+import { User, Prisma } from "@prisma/client";
 import { AbilityClass, AbilityBuilder } from "@casl/ability";
-import { PrismaAbility, Subjects } from "@casl/prisma";
+import { PrismaAbility } from "@casl/prisma";
 
-type AppAbilitySubjects = Subjects<{
-  User: User;
-  Example: Example;
-}>;
-
-type AppAbilityType = PrismaAbility<[string, AppAbilitySubjects]>;
+type AppAbilityType = PrismaAbility<[string, Prisma.ModelName]>;
 
 const AppAbility = PrismaAbility as AbilityClass<AppAbilityType>;
 const { can, cannot, build } = new AbilityBuilder(AppAbility);
