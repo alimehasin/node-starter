@@ -6,7 +6,7 @@ export default (user: any) => {
   const { can, cannot, build } = new AbilityBuilder(AppAbility);
 
   if (!user) {
-    // Unauthed user
+    // Unauthenticated user
   } else if (user.role === "ROOT") {
     can("manage", "all");
   } else {
