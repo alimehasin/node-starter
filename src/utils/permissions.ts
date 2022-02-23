@@ -1,17 +1,21 @@
-import { Ability, AbilityBuilder, AbilityClass } from "@casl/ability";
+import { User, Example } from "@prisma/client";
+import { AbilityClass, AbilityBuilder } from "@casl/ability";
+import { PrismaAbility, Subjects } from "@casl/prisma";
 
-export default (user: any) => {
-  const AppAbility = Ability as AbilityClass<Ability<[Action, Subject]>>;
+type AppAbilitySubjects = Subjects<{
+  User: User;
+  Example: Example;
+}>;
 
-  const { can, cannot, build } = new AbilityBuilder(AppAbility);
+type AppAbilityType = PrismaAbility<[string, AppAbilitySubjects]>;
 
-  if (!user) {
-    // Unauthenticated user
-  } else if (user.role === "ROOT") {
-    can("manage", "all");
-  } else {
-    cannot("manage", "all");
-  }
+const AppAbility = PrismaAbility as AbilityClass<AppAbilityType>;
+const { can, cannot, build } = new AbilityBuilder(AppAbility);
 
-  return build();
+export default (user?: User) => {
+  // Define the rules here
+  // You can fetch the permissions via user.role.permissions or something like this
+  // Then you can loop though the permissions and define the cans and the can'ts
+
+  return build;
 };
