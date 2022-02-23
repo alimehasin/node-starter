@@ -17,5 +17,5 @@ export default (user?: User) => {
   // You can fetch the permissions via user.role.permissions or something like this
   // Then you can loop though the permissions and define the cans and the can'ts
 
-  return build;
+  return build();
 };
