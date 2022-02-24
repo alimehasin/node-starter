@@ -3,6 +3,7 @@ import { Prisma } from "@prisma/client";
 import { ZodError } from "zod";
 import prismaErrorHandler from "./prisma-error";
 import SimpleError from "../errors";
+import { ENVIRONMENT } from "../secrets";
 
 export default async (
   error: ErrorRequestHandler,
@@ -10,8 +11,10 @@ export default async (
   res: Response,
   next: NextFunction
 ) => {
-  // eslint-disable-next-line no-console
-  console.error(error);
+  if (ENVIRONMENT === "development") {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
 
   // Simple error
   if (error instanceof SimpleError) {
