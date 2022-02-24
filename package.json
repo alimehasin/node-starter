@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "nodemon --files src/server.ts",
     "build": "tsc",
+    "build:check": "tsc --noEmit",
     "start": "node ./dist/src/server.js",
     "test": "jest --runInBand",
     "format:check": "prettier --check .",
