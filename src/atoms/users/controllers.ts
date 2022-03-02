@@ -27,7 +27,7 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const signup = async (req: Request, res: Response) => {
-  const data = schemas.signup.parse(req.body);
+  const data = await schemas.signup.parseAsync(req.body);
 
   const user = await services.createUser(data);
 
