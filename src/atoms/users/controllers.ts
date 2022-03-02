@@ -4,6 +4,7 @@ import * as schemas from "./schemas";
 import * as services from "./services";
 import { signAccessToken } from "./helpers";
 import { SimpleError } from "../../utils";
+import { translate } from "../../utils/i18n";
 
 export const login = async (req: Request, res: Response) => {
   const data = schemas.login.parse(req.body);
@@ -12,7 +13,7 @@ export const login = async (req: Request, res: Response) => {
 
   // Check for password
   if (!user || !bcrypt.compareSync(data.password, user.password)) {
-    throw new SimpleError(400, "Unable to login with the provided credentials");
+    throw new SimpleError(400, translate(req, "loginFailed"));
   }
 
   // Set cookies
@@ -35,7 +36,7 @@ export const signup = async (req: Request, res: Response) => {
 
 export const profile = async (req: Request, res: Response) => {
   if (!req.user) {
-    throw new SimpleError(500, "Something wen't wrong");
+    throw new SimpleError(500, translate(req, "serverError"));
   }
 
   const user = await services.getUserById(req.user.id);
