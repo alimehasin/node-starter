@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { logger } from "../utils";
 
 const prisma = new PrismaClient();
 
@@ -8,8 +9,7 @@ const main = async () => {
 
 main()
   .catch((error) => {
-    // eslint-disable-next-line no-console
-    console.error(error);
+    logger.error(error);
   })
   .finally(() => {
     prisma.$disconnect();

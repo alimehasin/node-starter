@@ -2,6 +2,7 @@ import path from "path";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { copyCrudAtom, copyBaseAtom } from "./helpers";
+import { logger } from "../../src/utils";
 
 export const makeAtom = async (name: string, crud = false) => {
   const src = path.join(process.cwd(), crud ? "bin/atom/crud" : "bin/atom/base");
@@ -25,6 +26,5 @@ export const createRootUser = async (
     },
   });
 
-  // eslint-disable-next-line no-console
-  console.log(user.username);
+  logger.info(user.username);
 };
