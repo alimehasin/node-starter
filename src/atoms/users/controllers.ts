@@ -16,14 +16,13 @@ export const login = async (req: Request, res: Response) => {
     throw new SimpleError(400, translate(req, "loginFailed"));
   }
 
-  // Set cookies
-  res.cookie("access-token", signAccessToken(user.id), {
-    path: "/",
-    httpOnly: true,
-    signed: true,
-  });
+  const accessToken = signAccessToken(user.id);
 
-  return res.status(200).json(services.reshape(user, true));
+  // Response
+  return res
+    .status(200)
+    .cookie("access-token", accessToken, { path: "/", httpOnly: true })
+    .json({ accessToken, user: services.reshape(user, true) });
 };
 
 export const signup = async (req: Request, res: Response) => {
