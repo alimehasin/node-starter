@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import helmet from "helmet";
@@ -10,9 +11,19 @@ import { setZodErrors } from "./middlewares";
 import { secrets, errorHandler } from "./utils";
 import * as strategies from "./utils/auth";
 import specs from "../openapi.json";
+import { CLIENT_ORIGIN } from "./utils/secrets";
 
 // Initialize the application
 const app: Application = express();
+
+// CORS (Cross Origin Resource Sharing)
+app.use(
+  cors({
+    credentials: true,
+    allowedHeaders: "*",
+    origin: CLIENT_ORIGIN,
+  })
+);
 
 // Security headers
 app.use(helmet());

@@ -11,3 +11,8 @@ export const PORT = pe.PORT || 3000;
 export const ENVIRONMENT = (pe.ENVIRONMENT as Environment) || "production";
 
 export const JWT_ACCESS_TOKEN_LIFETIME = pe.JWT_ACCESS_TOKEN_LIFETIME || "1h";
+
+// Client
+export const CLIENT_PROTOCOL = pe.CLIENT_PROTOCOL || "http";
+export const CLIENT_DOMAIN = pe.CLIENT_ORIGIN || "localhost:3000";
+export const CLIENT_ORIGIN = `${CLIENT_PROTOCOL}//${CLIENT_DOMAIN}`;
