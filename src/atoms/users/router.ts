@@ -1,12 +1,11 @@
-import { Router } from "express";
+import Router from "express";
+import * as controllers from "./controllers";
 import { authenticate } from "../../middlewares";
-import Controller from "./controller";
 
 const router = Router();
 
-router.post("/login", Controller.login);
-router.post("/register", Controller.register);
-router.get("/profile", authenticate({ tolerant: false }), Controller.profile);
-router.post("/refresh-tokens", Controller.refreshTokens);
+router.post("/login", controllers.login);
+router.post("/signup", controllers.signup);
+router.get("/profile", authenticate(), controllers.profile);
 
 export default router;

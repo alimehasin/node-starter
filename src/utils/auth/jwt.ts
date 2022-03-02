@@ -1,71 +1,27 @@
-import { Request } from "express";
-import { Strategy } from "passport-strategy";
-import { flow } from "lodash/fp";
-import jwt from "jsonwebtoken";
-import { SimpleError } from "..";
-import * as secrets from "../secrets";
+import { Strategy, StrategyOptions } from "passport-jwt";
+import { SECRET_KEY } from "../secrets";
 import prisma from "../../prisma";
 
-const getAccessJwtFromHeaders = (req: Request): string | null => {
-  // 1. Get the authorization header
-  const auth = req.headers.authorization;
-
-  // 2. Ensure valid format
-  if (!auth || !auth.startsWith("Bearer")) {
-    return null;
-  }
-
-  // 3. Delete "Bearer "
-  const token = auth.replace("Bearer ", "");
-
-  // 4. Return token
-  return token;
+const options: StrategyOptions = {
+  secretOrKey: SECRET_KEY,
+  jwtFromRequest: (req) => {
+    return req.signedCookies["access-token"] || null;
+  },
 };
 
-const getAccessJwtFromCookies = (req: Request): string => {
-  return req.cookies["access-token"];
-};
+const strategy = (tolerant: boolean) => {
+  return new Strategy(options, async (payload, verify) => {
+    const user = await prisma.user.findUnique({ where: { id: payload.id } });
 
-const getAccessJwt = (req: Request): string | null => {
-  return getAccessJwtFromHeaders(req) || getAccessJwtFromCookies(req);
-};
-
-const verifyAccessJwtForAuth = (token: string): string => {
-  const payload: any = jwt.verify(token, secrets.SECRET_KEY);
-
-  if (payload.type !== "ACCESS") {
-    throw new SimpleError(400, "Unable to login with the provided credentials.");
-  }
-
-  return payload.id;
-};
-
-const getUser = (id: string) => {
-  return prisma.user.findUnique({ where: { id } });
-};
-
-const authenticate = async (req: Request) => {
-  return flow(getAccessJwt, verifyAccessJwtForAuth, getUser)(req);
-};
-
-class BaseJwtStrategy extends Strategy {
-  tolerant: boolean;
-
-  constructor(tolerant: boolean) {
-    super();
-    this.tolerant = tolerant;
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  async authenticate(req: Request, options?: any) {
-    try {
-      this.success(await authenticate(req));
-    } catch (error) {
-      // eslint-disable-next-line no-unused-expressions
-      this.tolerant ? this.success(null) : this.fail(null, 401);
+    if (user) {
+      verify(null, user);
+    } else if (tolerant) {
+      verify(null, null);
+    } else {
+      verify(null, null, "can't authenticate the user");
     }
-  }
-}
+  });
+};
 
-export const jwtStrategy = new BaseJwtStrategy(false);
-export const jwtStrategyTolerant = new BaseJwtStrategy(true);
+export const jwtStrategy = strategy(false);
+export const jwtStrategyTolerant = strategy(true);

@@ -1,8 +1,7 @@
 import Router from "express";
-import Controller from "./controller";
+import * as controllers from "./controllers";
 
 const router = Router();
-const controller = new Controller();
 
 // Define your routes here
 

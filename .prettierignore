@@ -7,3 +7,5 @@ LICENSE
 openapi.json
 
 bin/atom/crud/schemas.ts
+
+.vscode/snippets.code-snippets

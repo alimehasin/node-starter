@@ -1,6 +1,6 @@
 import router from "./router";
 import * as schemas from "./schemas";
-import Service from "./service";
+import * as services from "./services";
 
 export default router;
-export { schemas, Service };
+export { schemas, services };

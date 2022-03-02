@@ -73,7 +73,7 @@ export const copyCrudAtom = async (name: string, src: string, dest: string) => {
   });
 
   // Inexact copy
-  const inexactCopy = ["controller.ts", "service.ts"];
+  const inexactCopy = ["controllers.ts", "services.ts"];
   inexactCopy.map(async (file) => {
     const general = await fse.readFile(path.join(src, file), {
       encoding: "utf-8",

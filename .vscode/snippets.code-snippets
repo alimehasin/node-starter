@@ -1,7 +1,9 @@
 {
-  "Controller method": {
-    "prefix": "cm",
-    "body": ["${1:endpoint} = async (req: Request, res: Response) => {${0}};"],
-    "description": "Controller method"
+  "Endpoint": {
+    "description": "Endpoint",
+    "prefix": "ep",
+    "body": [
+      "export const ${1:name} = async (req: Request, res: Response) => {${0}};"
+    ]
   }
 }

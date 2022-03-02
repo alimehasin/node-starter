@@ -1,16 +1,15 @@
 import Router from "express";
-import Controller from "./controller";
+import * as controllers from "./controllers";
 import { getObject } from "./middlewares";
 
 const router = Router();
-const controller = new Controller();
 
 // Define your routes here
-router.get("/", controller.list);
-router.post("/", controller.create);
+router.get("/", controllers.list);
+router.post("/", controllers.create);
 
-router.get("/:id", getObject, controller.retrieve);
-router.patch("/:id", getObject, controller.update);
-router.delete("/:id", getObject, controller.delete);
+router.get("/:id", getObject, controllers.retrieve);
+router.patch("/:id", getObject, controllers.update);
+router.delete("/:id", getObject, controllers.destroy);
 
 export default router;

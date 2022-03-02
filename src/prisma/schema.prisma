@@ -14,15 +14,4 @@ model User {
   firstName String?
   lastName  String?
   email     String? @unique
-
-  // Statistics
-  lastLogin     DateTime?
-  deactivatedAt DateTime?
-}
-
-model Example {
-  id String @id @default(uuid())
-
-  title String
-  desc  String
 }
