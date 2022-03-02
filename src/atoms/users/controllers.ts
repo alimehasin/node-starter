@@ -15,12 +15,11 @@ export const login = async (req: Request, res: Response) => {
     throw new SimpleError(400, "Unable to login with the provided credentials");
   }
 
-  const accessToken = signAccessToken(user.id);
-
   // Set cookies
-  res.cookie("access-token", accessToken, {
+  res.cookie("access-token", signAccessToken(user.id), {
     path: "/",
     httpOnly: true,
+    signed: true,
   });
 
   return res.status(200).json(services.reshape(user, true));

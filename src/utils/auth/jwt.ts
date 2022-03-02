@@ -5,7 +5,7 @@ import prisma from "../../prisma";
 const options: StrategyOptions = {
   secretOrKey: SECRET_KEY,
   jwtFromRequest: (req) => {
-    return req.cookies["access-token"] || null;
+    return req.signedCookies["access-token"] || null;
   },
 };
 
