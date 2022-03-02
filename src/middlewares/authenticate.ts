@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import passport from "passport";
 
-export default ({ tolerant = false }) =>
+export default (tolerant = false) =>
   async (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate(
       tolerant ? "jwt-tolerant" : "jwt",
