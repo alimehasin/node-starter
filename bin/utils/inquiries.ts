@@ -1,5 +1,7 @@
 import inquirer from "inquirer";
 import { PrismaClient } from "@prisma/client";
+// TODO: Fix this
+// eslint-disable-next-line import/no-unresolved
 import { fields as userValidatorFields } from "../../src/atoms/users/validator";
 
 export const rootUser = (prisma: PrismaClient) => {
