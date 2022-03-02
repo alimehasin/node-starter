@@ -1,1 +1,157 @@
-{}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "node-starter",
+    "version": "0.1.0",
+    "description": "Node Starter",
+    "contact": {
+      "name": "Ali Mehasin",
+      "url": "alimehasin.com"
+    }
+  },
+  "servers": [],
+  "paths": {
+    "/users/login": {
+      "post": {
+        "summary": "Login to your account",
+        "operationId": "post-users-login",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "username": "alice",
+                    "password": "password"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "summary": "Create your account",
+        "operationId": "post-users-signup",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "id": "46beeeb3-7472-4b82-9652-7661be392738",
+                    "username": "Charlie",
+                    "firstName": "Charlie",
+                    "lastName": "Adam",
+                    "email": "charlie@example.com"
+                  }
+                },
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "username": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "email": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "id",
+                  "username"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/profile": {
+      "get": {
+        "summary": "Get your account",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-users-profile",
+        "description": "Get your profile data (No need to send anything)"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "title": "User",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      }
+    }
+  }
+}
