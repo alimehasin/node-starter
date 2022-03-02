@@ -20,7 +20,6 @@ const app: Application = express();
 app.use(
   cors({
     credentials: true,
-    allowedHeaders: "*",
     origin: CLIENT_ORIGIN,
   })
 );
