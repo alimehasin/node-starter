@@ -1,8 +1,5 @@
 import inquirer from "inquirer";
 import { PrismaClient } from "@prisma/client";
-// TODO: Fix this
-// eslint-disable-next-line import/no-unresolved
-import { fields as userValidatorFields } from "../../src/atoms/users/validator";
 
 export const rootUser = (prisma: PrismaClient) => {
   return inquirer.prompt([
@@ -12,9 +9,7 @@ export const rootUser = (prisma: PrismaClient) => {
       type: "input",
       message: "Username",
       validate: async (value: string) => {
-        const username = userValidatorFields.username.parse(value);
-
-        if (await prisma.user.findUnique({ where: { username } })) {
+        if (await prisma.user.findUnique({ where: { username: value } })) {
           return "User with this username already exists.";
         }
 
@@ -28,7 +23,12 @@ export const rootUser = (prisma: PrismaClient) => {
       type: "password",
       message: "Password",
       validate: (value: string) => {
-        userValidatorFields.password.parse(value);
+        if (value.length < 8) {
+          throw new Error("Password must be at least 8 characters");
+        } else if (value.length > 40) {
+          throw new Error("Password must be at most 40 characters");
+        }
+
         return true;
       },
     },
