@@ -1,3 +1,5 @@
+import { Environment } from "../types/globals";
+
 const pe = process.env;
 
 if (!pe.SECRET_KEY || !pe.DATABASE_URL) {
