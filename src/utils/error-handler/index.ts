@@ -23,7 +23,7 @@ export default async (
 
   // Zod error
   if (error instanceof ZodError) {
-    return res.status(400).json(error);
+    return res.status(400).json(error.flatten());
   }
 
   // Prisma error
