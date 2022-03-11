@@ -29,7 +29,8 @@
     "lint-staged": "lint-staged",
     "prepare": "husky install",
     "initialize": "yarn && ts-node bin/commands/initialize.ts && prettier --write package.json",
-    "make": "ts-node bin/commands/make.ts"
+    "make": "ts-node bin/commands/make.ts",
+    "clean": "rimraf dist node_modules"
   },
   "dependencies": {
     "@casl/ability": "^5.4.3",
@@ -88,6 +89,7 @@
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "prisma": "^3.10.0",
+    "rimraf": "^3.0.2",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.3",
     "ts-node": "^10.5.0",
