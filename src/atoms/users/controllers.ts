@@ -17,12 +17,14 @@ export const login = async (req: Request, res: Response) => {
   }
 
   const accessToken = signAccessToken(user.id);
+  const reshapedUser = services.reshape(user, true);
 
   // Response
   return res
     .status(200)
     .cookie("access-token", accessToken, { path: "/", httpOnly: true })
-    .json({ accessToken, user: services.reshape(user, true) });
+    .cookie("user", JSON.stringify(reshapedUser), { path: "/", httpOnly: true })
+    .json({ accessToken, user: reshapedUser });
 };
 
 export const signup = async (req: Request, res: Response) => {
