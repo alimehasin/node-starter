@@ -1,7 +1,6 @@
 import { ErrorRequestHandler, Request, Response, NextFunction } from "express";
 import { Prisma } from "@prisma/client";
 import { ZodError } from "zod";
-import prismaErrorHandler from "./prisma-error";
 import types from "./types";
 import SimpleError from "../errors";
 import { ENVIRONMENT } from "../secrets";
@@ -35,8 +34,21 @@ export default async (
 
   // Prisma error
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    return prismaErrorHandler(req, res, error);
+    if (ENVIRONMENT === "development") {
+      return res.status(400).json({
+        _type: types.DB_OPERATION,
+        error: JSON.stringify(error),
+      });
+    }
+
+    return res.status(500).json({
+      _type: types.DB_OPERATION,
+      detail: "Unhandled error",
+    });
   }
 
-  return res.status(500).json("Unhandled error.");
+  return res.status(500).json({
+    _type: types.UNHANDLED_ERROR,
+    detail: "Unhandled error",
+  });
 };
