@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import types from "./types";
 import { ENVIRONMENT } from "../secrets";
 
 export default async (
@@ -7,13 +8,15 @@ export default async (
   res: Response,
   error: Prisma.PrismaClientKnownRequestError
 ) => {
-  // TODO: Handle the common error codes
-  if (error.code === "P2025") {
-    return res.status(404).json({ detail: error.message });
+  if (ENVIRONMENT === "development") {
+    return res.status(400).json({
+      _type: types.DB_OPERATION,
+      error: JSON.stringify(error),
+    });
   }
 
-  return res.status(400).json({
-    detail: "DB operation failed.",
-    error: ENVIRONMENT === "development" ? error : null,
+  return res.status(500).json({
+    _type: types.DB_OPERATION,
+    detail: "Unknown error please report this.",
   });
 };
