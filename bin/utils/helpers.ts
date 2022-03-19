@@ -89,3 +89,17 @@ export const copyCrudAtom = async (name: string, src: string, dest: string) => {
 export const copyBaseAtom = async (name: string, src: string, dest: string) => {
   await fse.copy(src, dest);
 };
+
+export const addAtomRoute = () => {
+  const atomName = 'books';
+  const imp = `import ${atomName} from './${atomName}';\n\nc`;
+  const use = `router.use('/${atomName}', ${atomName});\n\ne`;
+  const routerFilePath = path.join(process.cwd(), '/src/atoms/router.ts');
+
+  let file = fse.readFileSync(routerFilePath, { encoding: 'utf-8' });
+
+  file = file.replace(/\nc/, imp);
+  file = file.replace(/\ne/, use);
+
+  fse.writeFileSync(routerFilePath, file);
+};

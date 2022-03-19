@@ -1,7 +1,8 @@
-import { exec } from 'child_process';
+import process from 'process';
 import { Command } from 'commander';
 import { PrismaClient } from '@prisma/client';
 import { actions, inquiries } from '../utils';
+import { addAtomRoute } from '../utils/helpers';
 
 const program = new Command();
 const prisma = new PrismaClient();
@@ -11,9 +12,11 @@ program
   .argument('<name>', 'section name')
   .option('-crud', 'Create a CRUD atom', false)
   .action(async (name, { Crud }) => {
+    // Create the atom
     await actions.makeAtom(name, Crud);
 
-    exec('npx prisma migrate dev');
+    // Add atom route
+    addAtomRoute();
   });
 
 program.command('root-user').action(async () => {
