@@ -1,10 +1,10 @@
-import type { Request, Response } from "express";
-import bcrypt from "bcrypt";
-import * as schemas from "./schemas";
-import * as services from "./services";
-import { signAccessToken } from "./helpers";
-import { SimpleError } from "../../utils";
-import { translate } from "../../utils/i18n";
+import type { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
+import * as schemas from './schemas';
+import * as services from './services';
+import { signAccessToken } from './helpers';
+import { SimpleError } from '../../utils';
+import { translate } from '../../utils/i18n';
 
 export const login = async (req: Request, res: Response) => {
   const data = schemas.login.parse(req.body);
@@ -13,7 +13,7 @@ export const login = async (req: Request, res: Response) => {
 
   // Check for password
   if (!user || !bcrypt.compareSync(data.password, user.password)) {
-    throw new SimpleError(400, translate(req, "loginFailed"));
+    throw new SimpleError(400, translate(req, 'loginFailed'));
   }
 
   const accessToken = signAccessToken(user.id);
@@ -22,8 +22,8 @@ export const login = async (req: Request, res: Response) => {
   // Response
   return res
     .status(200)
-    .cookie("access-token", accessToken, { path: "/", httpOnly: true })
-    .cookie("user", JSON.stringify(reshapedUser), { path: "/", httpOnly: true })
+    .cookie('access-token', accessToken, { path: '/', httpOnly: true })
+    .cookie('user', JSON.stringify(reshapedUser), { path: '/', httpOnly: true })
     .json({ accessToken, user: reshapedUser });
 };
 
@@ -37,7 +37,7 @@ export const signup = async (req: Request, res: Response) => {
 
 export const profile = async (req: Request, res: Response) => {
   if (!req.user) {
-    throw new SimpleError(500, translate(req, "serverError"));
+    throw new SimpleError(500, translate(req, 'serverError'));
   }
 
   const user = await services.getUserById(req.user.id);

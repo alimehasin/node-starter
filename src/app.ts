@@ -1,17 +1,17 @@
-import express, { Application } from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import compression from "compression";
-import helmet from "helmet";
-import morgan from "morgan";
-import passport from "passport";
-import swaggerUi from "swagger-ui-express";
-import router from "./atoms/router";
-import { setZodErrors } from "./middlewares";
-import { secrets, errorHandler } from "./utils";
-import * as strategies from "./utils/auth";
-import specs from "../openapi.json";
-import { CLIENT_ORIGIN } from "./utils/secrets";
+import express, { Application } from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import passport from 'passport';
+import swaggerUi from 'swagger-ui-express';
+import router from './atoms/router';
+import { setZodErrors } from './middlewares';
+import { secrets, errorHandler } from './utils';
+import * as strategies from './utils/auth';
+import specs from '../openapi.json';
+import { CLIENT_ORIGIN } from './utils/secrets';
 
 // Initialize the application
 const app: Application = express();
@@ -39,20 +39,20 @@ app.use(cookieParser(secrets.SECRET_KEY));
 
 // Logging
 const format =
-  secrets.ENVIRONMENT === "development"
-    ? "dev"
-    : "[:date[clf]] :method :url :status :res[content-length] - :response-time ms";
+  secrets.ENVIRONMENT === 'development'
+    ? 'dev'
+    : '[:date[clf]] :method :url :status :res[content-length] - :response-time ms';
 app.use(morgan(format));
 
 // Authentication
 app.use(passport.initialize());
-passport.use("jwt", strategies.jwtStrategy);
-passport.use("jwt-tolerant", strategies.jwtStrategyTolerant);
+passport.use('jwt', strategies.jwtStrategy);
+passport.use('jwt-tolerant', strategies.jwtStrategyTolerant);
 
 // OpenAPI docs
-if (secrets.ENVIRONMENT === "development") {
-  app.use("/docs", swaggerUi.serve);
-  app.get("/docs", swaggerUi.setup(specs));
+if (secrets.ENVIRONMENT === 'development') {
+  app.use('/docs', swaggerUi.serve);
+  app.get('/docs', swaggerUi.setup(specs));
 }
 
 // Zod set error map middleware

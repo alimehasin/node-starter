@@ -1,10 +1,10 @@
-import { ErrorRequestHandler, Request, Response, NextFunction } from "express";
-import { Prisma } from "@prisma/client";
-import { ZodError } from "zod";
-import types from "./types";
-import SimpleError from "../errors";
-import { ENVIRONMENT } from "../secrets";
-import { logger } from "..";
+import { ErrorRequestHandler, Request, Response, NextFunction } from 'express';
+import { Prisma } from '@prisma/client';
+import { ZodError } from 'zod';
+import types from './types';
+import SimpleError from '../errors';
+import { ENVIRONMENT } from '../secrets';
+import { logger } from '..';
 
 export default async (
   error: ErrorRequestHandler,
@@ -12,7 +12,7 @@ export default async (
   res: Response,
   next: NextFunction
 ) => {
-  if (ENVIRONMENT === "development") {
+  if (ENVIRONMENT === 'development') {
     logger.error(error);
   }
 
@@ -34,7 +34,7 @@ export default async (
 
   // Prisma error
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    if (ENVIRONMENT === "development") {
+    if (ENVIRONMENT === 'development') {
       return res.status(400).json({
         _type: types.DB_OPERATION,
         error: JSON.stringify(error),
@@ -43,12 +43,12 @@ export default async (
 
     return res.status(500).json({
       _type: types.DB_OPERATION,
-      detail: "Unhandled error",
+      detail: 'Unhandled error',
     });
   }
 
   return res.status(500).json({
     _type: types.UNHANDLED_ERROR,
-    detail: "Unhandled error",
+    detail: 'Unhandled error',
   });
 };

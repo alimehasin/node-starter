@@ -1,3 +1,3 @@
-import translate from "./translate";
+import translate from './translate';
 
 export { translate };

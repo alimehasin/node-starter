@@ -1,6 +1,6 @@
-import { User, Prisma } from "@prisma/client";
-import { AbilityClass, AbilityBuilder } from "@casl/ability";
-import { PrismaAbility } from "@casl/prisma";
+import { User, Prisma } from '@prisma/client';
+import { AbilityClass, AbilityBuilder } from '@casl/ability';
+import { PrismaAbility } from '@casl/prisma';
 
 type AppAbilityType = PrismaAbility<[string, Prisma.ModelName]>;
 

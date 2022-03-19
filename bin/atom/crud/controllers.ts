@@ -1,6 +1,6 @@
-import type { Request, Response } from "express";
-import * as schemas from "./schemas";
-import * as services from "./services";
+import type { Request, Response } from 'express';
+import * as schemas from './schemas';
+import * as services from './services';
 
 export const list = async (req: Request, res: Response) => {
   // Validate query

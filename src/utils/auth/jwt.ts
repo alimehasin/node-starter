@@ -1,12 +1,12 @@
-import { Strategy, StrategyOptions } from "passport-jwt";
-import { SECRET_KEY } from "../secrets";
-import prisma from "../../prisma";
+import { Strategy, StrategyOptions } from 'passport-jwt';
+import { SECRET_KEY } from '../secrets';
+import prisma from '../../prisma';
 
 const options: StrategyOptions = {
   secretOrKey: SECRET_KEY,
   jwtFromRequest: (req) => {
-    const token = req.headers.authorization?.replace("Bearer ", "");
-    return token || req.cookies["access-token"];
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    return token || req.cookies['access-token'];
   },
 };
 

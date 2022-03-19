@@ -1,10 +1,10 @@
-import _ from "lodash";
-import { Prisma, User } from "@prisma/client";
-import prisma from "../../prisma";
+import _ from 'lodash';
+import { Prisma, User } from '@prisma/client';
+import prisma from '../../prisma';
 
 export const reshape = (user: User | null, perform: boolean) => {
   if (user && perform) {
-    return _.omit(user, ["password"]);
+    return _.omit(user, ['password']);
   }
 
   return user;

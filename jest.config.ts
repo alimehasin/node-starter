@@ -1,10 +1,10 @@
 export default {
   globals: {
-    "ts-jest": { tsconfig: "tsconfig.json" },
+    'ts-jest': { tsconfig: 'tsconfig.json' },
   },
-  moduleFileExtensions: ["js", "ts"],
-  transform: { "^.+\\.(ts|tsx)$": "ts-jest" },
-  testMatch: ["**/*test.(js|ts)"],
-  testEnvironment: "node",
-  testPathIgnorePatterns: ["/node_modules/", "dist"],
+  moduleFileExtensions: ['js', 'ts'],
+  transform: { '^.+\\.(ts|tsx)$': 'ts-jest' },
+  testMatch: ['**/*test.(js|ts)'],
+  testEnvironment: 'node',
+  testPathIgnorePatterns: ['/node_modules/', 'dist'],
 };

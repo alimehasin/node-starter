@@ -1,5 +1,5 @@
-import bcrypt from "bcrypt";
-import { z } from "zod";
+import bcrypt from 'bcrypt';
+import { z } from 'zod';
 
 const fields = {
   username: z.string().min(2).max(32),

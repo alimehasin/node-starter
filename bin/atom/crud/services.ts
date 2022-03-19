@@ -1,5 +1,5 @@
-import type * as Schema from "./schemas";
-import prisma from "../../prisma";
+import type * as Schema from './schemas';
+import prisma from '../../prisma';
 
 export const findOneById = async (id: string) => {
   const object = await prisma.object.findUnique({ where: { id } });

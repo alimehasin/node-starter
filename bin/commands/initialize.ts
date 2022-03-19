@@ -1,16 +1,16 @@
-import fs from "fs";
-import { inquiries } from "../utils";
-import project from "../../package.json";
+import fs from 'fs';
+import { inquiries } from '../utils';
+import project from '../../package.json';
 
 // Delete open-source files
-fs.unlinkSync("LICENSE");
-fs.unlinkSync("CONTRIBUTING.md");
+fs.unlinkSync('LICENSE');
+fs.unlinkSync('CONTRIBUTING.md');
 
 // Empty README.md
-fs.writeFileSync("README.md", "");
+fs.writeFileSync('README.md', '');
 
 // Create .env file from .env.example
-fs.renameSync(".env.example", ".env");
+fs.renameSync('.env.example', '.env');
 
 async function main() {
   const answers = await inquiries.projectInfo();
@@ -25,7 +25,7 @@ async function main() {
   delete newProject.keywords;
 
   // Write the new JSON into package.json
-  fs.writeFileSync("package.json", JSON.stringify(newProject));
+  fs.writeFileSync('package.json', JSON.stringify(newProject));
 }
 
 main();

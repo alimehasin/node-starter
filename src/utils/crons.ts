@@ -1,6 +1,6 @@
-import { CronJob } from "cron";
+import { CronJob } from 'cron';
 
-const welcome = new CronJob("1 1 * * *", () => {});
+const welcome = new CronJob('1 1 * * *', () => {});
 
 export default {
   start: () => {
