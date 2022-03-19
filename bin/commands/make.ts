@@ -1,3 +1,4 @@
+import { exec } from 'child_process';
 import { Command } from 'commander';
 import { PrismaClient } from '@prisma/client';
 import { actions, inquiries } from '../utils';
@@ -11,6 +12,8 @@ program
   .option('-crud', 'Create a CRUD atom', false)
   .action(async (name, { Crud }) => {
     await actions.makeAtom(name, Crud);
+
+    exec('npx prisma migrate dev');
   });
 
 program.command('root-user').action(async () => {
