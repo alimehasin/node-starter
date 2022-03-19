@@ -2,9 +2,9 @@ import { ErrorRequestHandler, Request, Response, NextFunction } from 'express';
 import { Prisma } from '@prisma/client';
 import { ZodError } from 'zod';
 import types from './types';
-import SimpleError from '../errors';
-import { ENVIRONMENT } from '../secrets';
-import { logger } from '..';
+import SimpleError from '../simple';
+import logger from '../../logger';
+import { ENVIRONMENT } from '../../secrets';
 
 export default async (
   error: ErrorRequestHandler,

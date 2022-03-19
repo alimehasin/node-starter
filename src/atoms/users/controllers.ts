@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import * as schemas from './schemas';
 import * as services from './services';
 import { signAccessToken } from './helpers';
-import { SimpleError } from '../../utils';
+import { SimpleError } from '../../utils/errors';
 import { translate } from '../../utils/i18n';
 
 export const login = async (req: Request, res: Response) => {
