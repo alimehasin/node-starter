@@ -26,7 +26,7 @@ export default (req: Request) => {
       }
 
       case 'invalid_union': {
-        message = `Invalid input`;
+        message = translate(req, 'zod.invalidInput');
 
         break;
       }
@@ -48,26 +48,29 @@ export default (req: Request) => {
       }
 
       case 'invalid_arguments': {
-        message = `Invalid function arguments`;
+        message = translate(req, 'zod.invalidArguments');
 
         break;
       }
 
       case 'invalid_return_type': {
-        message = `Invalid function return type`;
+        message = translate(req, 'zod.invalidReturnType');
 
         break;
       }
 
       case 'invalid_date': {
-        message = `Invalid date`;
+        message = translate(req, 'zod.invalidDate');
 
         break;
       }
 
       case 'invalid_string': {
-        if (issue.validation !== 'regex') message = `Invalid ${issue.validation}`;
-        else message = 'Invalid';
+        if (issue.validation !== 'regex') {
+          message = `Invalid ${issue.validation}`;
+        } else {
+          message = translate(req, 'zod.invalid');
+        }
 
         break;
       }
@@ -86,7 +89,7 @@ export default (req: Request) => {
             issue.inclusive ? `or equal to ` : ``
           }${issue.minimum}`;
         } else {
-          message = 'Invalid input';
+          message = translate(req, 'zod.invalidInput');
         }
 
         break;
@@ -106,20 +109,20 @@ export default (req: Request) => {
             issue.maximum
           }`;
         } else {
-          message = 'Invalid input';
+          message = translate(req, 'zod.invalidInput');
         }
 
         break;
       }
 
       case 'custom': {
-        message = `Invalid input`;
+        message = translate(req, 'zod.invalidInput');
 
         break;
       }
 
       case 'invalid_intersection_types': {
-        message = `Intersection results could not be merged`;
+        message = translate(req, 'zod.invalidIntersectionTypes');
 
         break;
       }
