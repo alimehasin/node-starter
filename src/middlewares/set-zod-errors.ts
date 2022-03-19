@@ -5,7 +5,7 @@ import { translate } from '../utils/i18n';
 const setZodErrors = async (req: Request, res: Response, next: NextFunction) => {
   // TODO: Translate errors
 
-  const em: z.ZodErrorMap = (issue, ctx) => {
+  const em: z.ZodErrorMap = (issue, ctx): { message: string } => {
     if (issue.code === 'too_small') {
       return { message: translate(req, 'zod.tooSmall') };
     }
