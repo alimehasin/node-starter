@@ -90,8 +90,8 @@ export const copyBaseAtom = async (name: string, src: string, dest: string) => {
   await fse.copy(src, dest);
 };
 
-export const addAtomRoute = () => {
-  const atomName = 'books';
+export const addAtomRoute = (name: string) => {
+  const atomName = `${name}s`;
   const imp = `import ${atomName} from './${atomName}';\n\nc`;
   const use = `router.use('/${atomName}', ${atomName});\n\ne`;
   const routerFilePath = path.join(process.cwd(), '/src/atoms/router.ts');
