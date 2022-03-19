@@ -23,7 +23,7 @@ export const login = async (req: Request, res: Response) => {
   return res
     .status(200)
     .cookie('access-token', accessToken, { path: '/', httpOnly: true })
-    .cookie('user', JSON.stringify(reshapedUser), { path: '/', httpOnly: true })
+    .cookie('user', JSON.stringify(reshapedUser), { path: '/' })
     .json({ accessToken, user: reshapedUser });
 };
 
