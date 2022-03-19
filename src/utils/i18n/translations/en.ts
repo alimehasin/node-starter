@@ -1,6 +1,6 @@
 export default {
   zod: {
-    tooSmall: 'Too small',
+    required: 'This field is required',
   },
 
   loginFailed: 'Unable to login with the provided credentials',
