@@ -1,10 +1,16 @@
 import { ErrorRequestHandler, Request, Response, NextFunction } from 'express';
 import { Prisma } from '@prisma/client';
 import { ZodError } from 'zod';
-import types from './types';
-import SimpleError from '../simple';
-import logger from '../../logger';
-import { ENVIRONMENT } from '../../secrets';
+import SimpleError from './simple';
+import logger from '../logger';
+import { ENVIRONMENT } from '../secrets';
+
+const types = {
+  SIMPLE: 'SIMPLE',
+  ZOD_FLATTENED: 'ZOD_FLATTENED',
+  DB_OPERATION: 'DB_OPERATION',
+  UNHANDLED_ERROR: 'UNHANDLED_ERROR',
+};
 
 export default async (
   error: ErrorRequestHandler,
