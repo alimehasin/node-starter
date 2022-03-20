@@ -44,3 +44,12 @@ export const profile = async (req: Request, res: Response) => {
 
   return res.status(200).json(user);
 };
+
+export const logout = async (req: Request, res: Response) => {
+  res.clearCookie('access-token');
+  res.clearCookie('user');
+
+  return res.status(200).json({
+    message: 'Logged out sucessfully',
+  });
+};
