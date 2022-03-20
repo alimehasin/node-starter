@@ -17,7 +17,7 @@ export const findMany = async (query: Schema.Query) => {
   return [count, objects];
 };
 
-export const create = async (data: Schema.Crate) => {
+export const create = async (data: Schema.Create) => {
   const object = await prisma.object.create({ data });
 
   return object;
