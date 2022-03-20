@@ -47,7 +47,7 @@ export const copySchemas = async (src: string, dest: string, fields: any[]) => {
     } else if (field.type === 'Int' || field.type === 'Float') {
       schemas += `  ${field.name}: z.number(),\n`;
     } else if (field.type === 'DateTime') {
-      schemas += `  ${field.name}: z.string().refine(Date),\n`;
+      schemas += `  ${field.name}: z.string().transform(Date),\n`;
     }
   });
 
