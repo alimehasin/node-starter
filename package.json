@@ -30,7 +30,8 @@
     "prepare": "husky install",
     "initialize": "yarn && ts-node bin/commands/initialize.ts && prettier --write package.json",
     "make": "ts-node bin/commands/make.ts",
-    "clean": "rimraf dist node_modules"
+    "clean:migration": "find src/prisma/migrations -type d -empty -delete",
+    "clean": "rimraf dist node_modules && npm run clean:migration"
   },
   "dependencies": {
     "@casl/ability": "^5.4.3",
