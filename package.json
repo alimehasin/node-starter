@@ -4,6 +4,7 @@
   "description": "Simple node starter with TypeScript and Prisma",
   "author": "Ali Mehasin",
   "license": "GPL-3.0",
+  "bin": "dist/src/server.js",
   "repository": {
     "url": "https://github.com/SoftshapeCode/node-starter"
   },
@@ -16,6 +17,12 @@
   "prisma": {
     "schema": "src/prisma/schema.prisma",
     "seed": "ts-node src/prisma/seed.ts"
+  },
+  "pkg": {
+    "assets": [
+      ".env",
+      "node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node"
+    ]
   },
   "scripts": {
     "dev": "nodemon --files src/server.ts",
@@ -31,7 +38,8 @@
     "initialize": "yarn && ts-node bin/commands/initialize.ts && prettier --write package.json",
     "make": "ts-node bin/commands/make.ts",
     "clean:empties": "find src -type d -empty -delete",
-    "clean": "rimraf dist && npm run clean:empties"
+    "clean": "rimraf dist && npm run clean:empties",
+    "pkg": "yarn build && pkg ."
   },
   "dependencies": {
     "@casl/ability": "^5.4.3",
@@ -88,6 +96,7 @@
     "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
     "nodemon": "^2.0.15",
+    "pkg": "^5.5.2",
     "prettier": "^2.5.1",
     "prisma": "^3.10.0",
     "rimraf": "^3.0.2",
