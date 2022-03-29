@@ -31,7 +31,7 @@
     "initialize": "yarn && ts-node bin/commands/initialize.ts && prettier --write package.json",
     "make": "ts-node bin/commands/make.ts",
     "clean:empties": "find src -type d -empty -delete",
-    "clean": "rimraf dist node_modules && npm run clean:empties"
+    "clean": "rimraf dist && npm run clean:empties"
   },
   "dependencies": {
     "@casl/ability": "^5.4.3",
