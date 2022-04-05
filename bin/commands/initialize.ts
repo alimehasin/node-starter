@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { inquiries } from '../utils';
+import * as inquiries from '../utils/inquiries';
 import project from '../../package.json';
 
 // Delete open-source files
