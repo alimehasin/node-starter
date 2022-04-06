@@ -8,6 +8,7 @@ export default {
     invalidReturnType: 'نوع إرجاع دالة غير صالح',
     invalidDate: 'تاريخ غير صالح',
     invalidIntersectionTypes: 'تعذر دمج نتائج التقاطع',
+    usernameExists: 'اسم المستخدم هذه مسجل',
   },
 
   loginFailed: 'لا يمكن تسجيل الدخول باستعمال اسم المستخدم وكلمة السر هذه',

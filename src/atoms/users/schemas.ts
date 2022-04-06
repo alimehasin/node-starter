@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { z } from 'zod';
+import prisma from '../../prisma';
 
 const fields = {
   username: z.string().min(2).max(32),
@@ -12,7 +13,13 @@ export const login = z.object({
 });
 
 export const signup = z.object({
-  username: fields.username,
+  // TODO: Translate this custom error
+  username: fields.username.refine(async (username) => {
+    const user = await prisma.user.findUnique({ where: { username } });
+
+    return !user;
+  }),
+
   password: fields.password.transform((value) => bcrypt.hash(value, 12)),
   firstName: z.string().min(2).max(32).optional(),
   lastName: z.string().min(2).max(32).optional(),
