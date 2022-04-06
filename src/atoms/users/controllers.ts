@@ -17,7 +17,7 @@ export const login = async (req: Request, res: Response) => {
   }
 
   const accessToken = signAccessToken(user.id);
-  const reshapedUser = services.reshape(user, true);
+  const reshapedUser = services.reshape(user);
 
   // Response
   return res
