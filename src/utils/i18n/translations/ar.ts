@@ -16,4 +16,5 @@ export default {
   unknownError: 'خطأ غير معروف',
   oldPasswordWrong: 'كلمة السر القديمة غير صحيحة',
   passwordUpdated: 'تم تعديم كلمة السر الخاصة بك',
+  notFound: 'العنصر غير موجود',
 };

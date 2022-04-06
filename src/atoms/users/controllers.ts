@@ -59,12 +59,12 @@ export const changePassword = async (req: Request, res: Response) => {
 
   // Make sure that the user is logged in
   if (!req.user) {
-    return res.status(500).json({ detail: translate(req, 'unknownError') });
+    throw new SimpleError(500, translate(req, 'unknownError'));
   }
 
   // Make sure that the password correct
   if (!bcrypt.compareSync(data.oldPassword, req.user.password)) {
-    return res.status(400).json({ detail: translate(req, 'oldPasswordWrong') });
+    throw new SimpleError(400, translate(req, 'oldPasswordWrong'));
   }
 
   await services.setPassword(req.user.username, bcrypt.hashSync(data.newPassword, 10));
