@@ -63,11 +63,11 @@ export const changePassword = async (req: Request, res: Response) => {
   }
 
   // Make sure that the password correct
-  if (!bcrypt.compareSync(data.newPassword, req.user.password)) {
+  if (!bcrypt.compareSync(data.oldPassword, req.user.password)) {
     return res.status(400).json({ detail: translate(req, 'oldPasswordWrong') });
   }
 
-  await services.setPassword(req.user.username, data.newPassword);
+  await services.setPassword(req.user.username, bcrypt.hashSync(data.newPassword, 10));
 
   return res.status(200).json({ message: translate(req, 'passwordUpdated') });
 };
