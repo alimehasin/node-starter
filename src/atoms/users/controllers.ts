@@ -53,3 +53,21 @@ export const logout = async (req: Request, res: Response) => {
     message: 'Logged out sucessfully',
   });
 };
+
+export const changePassword = async (req: Request, res: Response) => {
+  const data = schemas.changePassword.parse(req.body);
+
+  // Make sure that the user is logged in
+  if (!req.user) {
+    return res.status(500).json({ detail: translate(req, 'unknownError') });
+  }
+
+  // Make sure that the password correct
+  if (!bcrypt.compareSync(data.newPassword, req.user.password)) {
+    return res.status(400).json({ detail: translate(req, 'oldPasswordWrong') });
+  }
+
+  await services.setPassword(req.user.username, data.newPassword);
+
+  return res.status(200).json({ message: translate(req, 'passwordUpdated') });
+};

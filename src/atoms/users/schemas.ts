@@ -26,5 +26,11 @@ export const signup = z.object({
   email: z.string().email().optional(),
 });
 
+export const changePassword = z.object({
+  oldPassword: z.string(),
+  newPassword: fields.password,
+});
+
 export type Login = z.infer<typeof login>;
 export type Signup = z.infer<typeof signup>;
+export type ChangePassword = z.infer<typeof changePassword>;

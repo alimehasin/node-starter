@@ -25,3 +25,9 @@ export const getUserByUsername = async (username: string, shouldReshape = true) 
 
   return shouldReshape ? reshape(user) : user;
 };
+
+export const setPassword = async (username: string, password: string) => {
+  const user = await prisma.user.update({ where: { username }, data: { password } });
+
+  return user;
+};

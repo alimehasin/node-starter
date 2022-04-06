@@ -8,9 +8,12 @@ export default {
     invalidReturnType: 'Invalid function return type',
     invalidDate: 'Invalid date',
     invalidIntersectionTypes: 'Intersection results could not be merged',
-    usernameExists: 'User with this username already exists',
   },
 
   loginFailed: 'Unable to login with the provided credentials',
   serverError: 'Something went wrong',
+  usernameExists: 'User with this username already exists',
+  unknownError: 'Unknown error',
+  oldPasswordWrong: 'Old password is not correct',
+  passwordUpdated: 'Your password has been successfully updated',
 };
