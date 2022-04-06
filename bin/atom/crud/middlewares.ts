@@ -1,5 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import * as services from './services';
+import { SimpleError } from '../../../src/utils/errors';
+import { translate } from '../../../src/utils/i18n';
 
 export const getObject = async (req: Request, res: Response, next: NextFunction) => {
   const obj = await services.findOneById(req.params.id);
@@ -7,7 +9,7 @@ export const getObject = async (req: Request, res: Response, next: NextFunction)
   // Ownership validation should be here
 
   if (!obj) {
-    return res.status(404).json({ detail: 'Item not found.' });
+    throw new SimpleError(500, translate(req, 'notFound'));
   }
 
   res.locals.obj = obj;

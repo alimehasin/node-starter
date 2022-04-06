@@ -16,4 +16,5 @@ export default {
   unknownError: 'Unknown error',
   oldPasswordWrong: 'Old password is not correct',
   passwordUpdated: 'Your password has been successfully updated',
+  notFound: 'Resource not found',
 };
