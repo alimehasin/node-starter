@@ -7,8 +7,8 @@ const fields = {
 };
 
 export const login = z.object({
-  username: fields.username,
-  password: fields.password,
+  username: z.string().max(128),
+  password: z.string().max(128),
 });
 
 export const signup = z.object({
