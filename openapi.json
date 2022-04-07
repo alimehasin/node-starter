@@ -13,7 +13,7 @@
   "paths": {
     "/users/login": {
       "post": {
-        "summary": "Login to your account",
+        "summary": "Login",
         "operationId": "post-users-login",
         "responses": {
           "200": {
@@ -82,7 +82,7 @@
             }
           }
         },
-        "description": "",
+        "description": "Login to your account\nThis will set 2 cookies\n1. access-token (HTTP only)\n2. user",
         "requestBody": {
           "content": {
             "application/json": {
@@ -117,7 +117,7 @@
     },
     "/users/signup": {
       "post": {
-        "summary": "Create your account",
+        "summary": "Signup",
         "operationId": "post-users-signup",
         "responses": {
           "200": {
@@ -214,12 +214,13 @@
               }
             }
           }
-        }
+        },
+        "description": "Sign up"
       }
     },
     "/users/profile": {
       "get": {
-        "summary": "Get your account",
+        "summary": "Profile",
         "tags": [],
         "responses": {},
         "operationId": "get-users-profile",
@@ -228,7 +229,7 @@
     },
     "/users/change-password": {
       "post": {
-        "summary": "Change your password",
+        "summary": "Change password",
         "operationId": "post-users-change-password",
         "responses": {
           "200": {
@@ -349,7 +350,7 @@
             "description": "OK"
           }
         },
-        "description": "Logout request to delete cookies"
+        "description": "Logout request will perform the following\n1. Delete auth cookies\n2. Revoke the tokens and the older version"
       }
     }
   },
