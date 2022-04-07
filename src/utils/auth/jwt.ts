@@ -12,7 +12,12 @@ const options: StrategyOptions = {
 
 const strategy = (tolerant: boolean) => {
   return new Strategy(options, async (payload, verify) => {
-    const user = await prisma.user.findUnique({ where: { id: payload.id } });
+    const user = await prisma.user.findFirst({
+      where: {
+        id: payload.id,
+        revokeTokensBefore: { lte: new Date(payload.iat * 1000) },
+      },
+    });
 
     if (user) {
       verify(null, user);

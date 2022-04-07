@@ -17,4 +17,5 @@ export default {
   oldPasswordWrong: 'كلمة السر القديمة غير صحيحة',
   passwordUpdated: 'تم تعديم كلمة السر الخاصة بك',
   notFound: 'العنصر غير موجود',
+  logoutSuccess: 'تم تسجيل الخروج بنجاح',
 };

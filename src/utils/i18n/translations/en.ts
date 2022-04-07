@@ -17,4 +17,5 @@ export default {
   oldPasswordWrong: 'Old password is not correct',
   passwordUpdated: 'Your password has been successfully updated',
   notFound: 'Resource not found',
+  logoutSuccess: 'Logged out successfully',
 };

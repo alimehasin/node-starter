@@ -49,9 +49,15 @@ export const logout = async (req: Request, res: Response) => {
   res.clearCookie('access-token');
   res.clearCookie('user');
 
-  return res.status(200).json({
-    message: 'Logged out sucessfully',
-  });
+  const message = translate(req, 'logoutSuccess');
+
+  if (!req.user) {
+    return res.json({ message });
+  }
+
+  await services.setRevokeTokensBefore(req.user.username);
+
+  return res.json({ message });
 };
 
 export const changePassword = async (req: Request, res: Response) => {
