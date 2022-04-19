@@ -8,6 +8,10 @@ export default {
     invalidReturnType: 'نوع إرجاع دالة غير صالح',
     invalidDate: 'تاريخ غير صالح',
     invalidIntersectionTypes: 'تعذر دمج نتائج التقاطع',
+    stringMustContain: 'يجب ان يكون طول النص',
+    atLeast: 'على الاقل',
+    atMost: 'على الاكثر',
+    characters: 'حرف',
   },
 
   loginFailed: 'لا يمكن تسجيل الدخول باستعمال اسم المستخدم وكلمة السر هذه',

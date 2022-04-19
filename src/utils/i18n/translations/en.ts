@@ -8,6 +8,10 @@ export default {
     invalidReturnType: 'Invalid function return type',
     invalidDate: 'Invalid date',
     invalidIntersectionTypes: 'Intersection results could not be merged',
+    stringMustContain: 'String length must contain',
+    atLeast: 'at least',
+    atMost: 'at most',
+    characters: 'character',
   },
 
   loginFailed: 'Unable to login with the provided credentials',
