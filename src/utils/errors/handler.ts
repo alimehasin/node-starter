@@ -1,4 +1,4 @@
-import { ErrorRequestHandler, Request, Response, NextFunction } from 'express';
+import { ErrorRequestHandler } from 'express';
 import { Prisma } from '@prisma/client';
 import { ZodError } from 'zod';
 import SimpleError from './simple';
@@ -12,12 +12,7 @@ const types = {
   UNHANDLED_ERROR: 'UNHANDLED_ERROR',
 };
 
-export default async (
-  error: ErrorRequestHandler,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const errorHandler: ErrorRequestHandler = async (error, req, res, next) => {
   if (ENVIRONMENT === 'development') {
     logger.error(error);
   }
@@ -58,3 +53,5 @@ export default async (
     detail: 'Unhandled error',
   });
 };
+
+export default errorHandler;
