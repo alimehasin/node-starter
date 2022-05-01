@@ -1,4 +1,4 @@
-import { Environment } from '../types/globals';
+import { Environment } from '../types';
 
 const pe = process.env;
 
