@@ -32,6 +32,15 @@ export const signupValidator = (req: Request, body: any) => {
       },
       { message: translate(req, 'usernameExists') }
     ),
+
+    email: signup.shape.email.refine(
+      async (email) => {
+        const user = await prisma.user.findUnique({ where: { email } });
+
+        return !user;
+      },
+      { message: translate(req, 'emailUsed') }
+    ),
   });
 
   return schema.parseAsync(body);

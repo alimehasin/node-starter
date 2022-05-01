@@ -16,7 +16,8 @@ export default {
 
   loginFailed: 'Unable to login with the provided credentials',
   serverError: 'Something went wrong',
-  usernameExists: 'User with this username already exists',
+  usernameExists: 'A user with this username already exists',
+  emailUsed: 'A user with this email already exists',
   unknownError: 'Unknown error',
   oldPasswordWrong: 'Old password is not correct',
   passwordUpdated: 'Your password has been successfully updated',
