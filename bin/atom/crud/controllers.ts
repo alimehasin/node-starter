@@ -13,6 +13,10 @@ export const list: Handler = async (req, res) => {
   return res.json({ count, results: objects });
 };
 
+export const retrieve: Handler = async (req, res) => {
+  return res.json(res.locals.obj);
+};
+
 export const create: Handler = async (req, res) => {
   // Validate data
   const data = schemas.create.parse(req.body);
@@ -22,10 +26,6 @@ export const create: Handler = async (req, res) => {
 
   // Response
   return res.status(201).json(object);
-};
-
-export const retrieve: Handler = async (req, res) => {
-  return res.json(res.locals.obj);
 };
 
 export const update: Handler = async (req, res) => {

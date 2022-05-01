@@ -6,9 +6,9 @@ const router = Router();
 
 // Define your routes here
 router.get('/', controllers.list);
-router.post('/', controllers.create);
-
 router.get('/:id', getObject, controllers.retrieve);
+
+router.post('/', controllers.create);
 router.patch('/:id', getObject, controllers.update);
 router.delete('/:id', getObject, controllers.destroy);
 
