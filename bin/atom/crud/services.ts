@@ -16,6 +16,7 @@ export const findOneById = async (req: Request, id: string) => {
 
 export const findMany = async (req: Request, query: Schema.Query) => {
   const count = await prisma.object.count();
+
   const objects = await prisma.object.findMany({
     skip: query.skip,
     take: query.take,

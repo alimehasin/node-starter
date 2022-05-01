@@ -117,8 +117,8 @@ export const copyBaseAtom = async (name: AtomName, src: string, dest: string) =>
 };
 
 export const addAtomRoute = (name: AtomName) => {
-  const imp = `import ${name.camelCase} from './${name.kebabCase}';\n\nc`;
-  const use = `router.use('/${name.camelCase}', ${name.camelCase});\n\ne`;
+  const imp = `import ${name.camelCase}s from './${name.kebabCase}s';\n\nc`;
+  const use = `router.use('/${name.kebabCase}s', ${name.camelCase}s);\n\ne`;
   const routerFilePath = path.join(process.cwd(), '/src/atoms/router.ts');
 
   let file = fse.readFileSync(routerFilePath, { encoding: 'utf-8' });
