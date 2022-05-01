@@ -3,7 +3,7 @@
     "description": "Endpoint",
     "prefix": "ep",
     "body": [
-      "export const ${1:name} = async (req: Request, res: Response) => {${0}};"
+      "export const ${1:name}: Handler = async (req, res) => {${0}};"
     ]
   }
 }

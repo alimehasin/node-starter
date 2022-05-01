@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { Request } from 'express';
 import { z } from 'zod';
 import prisma from '../../prisma';
+import { SimpleError } from '../../utils/errors';
 import { translate } from '../../utils/i18n';
 
 const fields = {
@@ -46,6 +47,46 @@ export const signupValidator = (req: Request, body: any) => {
   return schema.parseAsync(body);
 };
 
+export const editProfile = signup.partial();
+
+export const editProfileValidator = (req: Request, body: any) => {
+  if (!req.user) {
+    throw new SimpleError(500, translate(req, 'serverError'));
+  }
+
+  const schema = editProfile
+    .extend({
+      username: editProfile.shape.username.refine(
+        async (username) => {
+          if (req.user?.username === username) {
+            return true;
+          }
+
+          const user = await prisma.user.findUnique({ where: { username } });
+
+          return !user;
+        },
+        { message: translate(req, 'usernameExists') }
+      ),
+
+      email: editProfile.shape.email.refine(
+        async (email) => {
+          if (req.user?.email === email) {
+            return true;
+          }
+
+          const user = await prisma.user.findUnique({ where: { email } });
+
+          return !user;
+        },
+        { message: translate(req, 'emailUsed') }
+      ),
+    })
+    .partial();
+
+  return schema.parseAsync(body);
+};
+
 export const changePassword = z.object({
   oldPassword: z.string(),
   newPassword: fields.password,
@@ -53,4 +94,5 @@ export const changePassword = z.object({
 
 export type Login = z.infer<typeof login>;
 export type Signup = z.infer<typeof signup>;
+export type EditProfile = z.infer<typeof editProfile>;
 export type ChangePassword = z.infer<typeof changePassword>;

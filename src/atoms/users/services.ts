@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { Request } from 'express';
 import { Prisma, User } from '@prisma/client';
+import * as schemas from './schemas';
 import prisma from '../../prisma';
 import { UserShape } from './types';
 
@@ -24,7 +25,7 @@ export const shape = (user: User): UserShape => {
 
 export const createUser = async (
   req: Request,
-  data: Prisma.UserCreateInput
+  data: schemas.Signup
 ): Promise<UserShape> => {
   const user = await prisma.user.create({ data });
 
@@ -64,6 +65,16 @@ export const setRevokeTokensBefore = async (req: Request, username: string) => {
     where: { username },
     data: { revokeTokensBefore: new Date() },
   });
+
+  return user ? shape(user) : null;
+};
+
+export const editProfile = async (
+  req: Request,
+  id: string,
+  data: schemas.EditProfile
+): Promise<UserShape | null> => {
+  const user = await prisma.user.update({ where: { id }, data });
 
   return user ? shape(user) : null;
 };

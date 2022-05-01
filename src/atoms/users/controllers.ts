@@ -61,6 +61,18 @@ export const profile: Handler = async (req, res) => {
   return res.status(200).json(user);
 };
 
+export const editProfile: Handler = async (req, res) => {
+  if (!req.user) {
+    throw new SimpleError(500, translate(req, 'serverError'));
+  }
+
+  const data = await schemas.editProfileValidator(req, req.body);
+
+  const user = await services.editProfile(req, req.user.id, data);
+
+  return res.status(200).json(user);
+};
+
 export const logout: Handler = async (req, res) => {
   // Clear cookies
   res.clearCookie('access-token');
