@@ -3,40 +3,40 @@ import type * as Schema from './schemas';
 import prisma from '../../prisma';
 
 export const _getById = async (req: Request, id: string) => {
-  const object = await prisma.object.findUnique({ where: { id } });
+  const _object = await prisma._object.findUnique({ where: { id } });
 
-  return object;
+  return _object;
 };
 
 export const findOneById = async (req: Request, id: string) => {
-  const object = await prisma.object.findUnique({ where: { id } });
+  const _object = await prisma._object.findUnique({ where: { id } });
 
-  return object;
+  return _object;
 };
 
 export const findMany = async (req: Request, query: Schema.Query) => {
-  const count = await prisma.object.count();
+  const count = await prisma._object.count();
 
-  const objects = await prisma.object.findMany({
+  const _objects = await prisma._object.findMany({
     skip: query.skip,
     take: query.take,
   });
 
-  return [count, objects];
+  return [count, _objects];
 };
 
 export const create = async (req: Request, data: Schema.Create) => {
-  const object = await prisma.object.create({ data });
+  const _object = await prisma._object.create({ data });
 
-  return object;
+  return _object;
 };
 
 export const update = async (req: Request, id: string, data: Schema.Update) => {
-  const object = await prisma.object.update({ where: { id }, data });
+  const _object = await prisma._object.update({ where: { id }, data });
 
-  return object;
+  return _object;
 };
 
 export const destroy = async (req: Request, id: string) => {
-  await prisma.object.delete({ where: { id } });
+  await prisma._object.delete({ where: { id } });
 };

@@ -4,14 +4,14 @@ import { SimpleError } from '../../utils/errors';
 import { translate } from '../../utils/i18n';
 
 export const getObject: Handler = async (req, res, next) => {
-  const obj = await services._getById(req, req.params.id);
+  const _object = await services._getById(req, req.params.id);
 
   // Ownership validation should be here
 
-  if (!obj) {
+  if (!_object) {
     throw new SimpleError(404, translate(req)('notFound'));
   }
 
-  res.locals.obj = obj;
+  req.object = _object;
   return next();
 };

@@ -93,19 +93,19 @@ export const copyCrudAtom = async (name: AtomName, src: string, dest: string) =>
   ];
 
   // Exact copy
-  const exactCopy = ['index.ts', 'middlewares.ts', 'router.ts'];
+  const exactCopy = ['index.ts', 'router.ts'];
   exactCopy.map(async (file) => {
     promises.push(fse.copy(path.join(src, file), path.join(dest, file)));
   });
 
   // Inexact copy
-  const inexactCopy = ['controllers.ts', 'services.ts'];
+  const inexactCopy = ['controllers.ts', 'services.ts', 'middlewares.ts'];
   inexactCopy.map(async (file) => {
     const general = await fse.readFile(path.join(src, file), {
       encoding: 'utf-8',
     });
 
-    const modified = general.replace(/object/g, name.camelCase);
+    const modified = general.replace(/_object/g, name.camelCase);
     promises.push(fse.writeFile(path.join(dest, file), modified));
   });
 
