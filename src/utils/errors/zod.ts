@@ -9,7 +9,7 @@ export default (req: Request) => {
     switch (issue.code) {
       case 'invalid_type': {
         if (issue.received === 'undefined') {
-          message = translate(req, 'zod.required');
+          message = translate(req)('zod.required');
         } else {
           message = `Expected ${issue.expected}, received ${issue.received}`;
         }
@@ -26,7 +26,7 @@ export default (req: Request) => {
       }
 
       case 'invalid_union': {
-        message = translate(req, 'zod.invalidInput');
+        message = translate(req)('zod.invalidInput');
 
         break;
       }
@@ -48,19 +48,19 @@ export default (req: Request) => {
       }
 
       case 'invalid_arguments': {
-        message = translate(req, 'zod.invalidArguments');
+        message = translate(req)('zod.invalidArguments');
 
         break;
       }
 
       case 'invalid_return_type': {
-        message = translate(req, 'zod.invalidReturnType');
+        message = translate(req)('zod.invalidReturnType');
 
         break;
       }
 
       case 'invalid_date': {
-        message = translate(req, 'zod.invalidDate');
+        message = translate(req)('zod.invalidDate');
 
         break;
       }
@@ -69,7 +69,7 @@ export default (req: Request) => {
         if (issue.validation !== 'regex') {
           message = `Invalid ${issue.validation}`;
         } else {
-          message = translate(req, 'zod.invalid');
+          message = translate(req)('zod.invalid');
         }
 
         break;
@@ -89,7 +89,7 @@ export default (req: Request) => {
             issue.inclusive ? `or equal to ` : ``
           }${issue.minimum}`;
         } else {
-          message = translate(req, 'zod.invalidInput');
+          message = translate(req)('zod.invalidInput');
         }
 
         break;
@@ -109,20 +109,20 @@ export default (req: Request) => {
             issue.maximum
           }`;
         } else {
-          message = translate(req, 'zod.invalidInput');
+          message = translate(req)('zod.invalidInput');
         }
 
         break;
       }
 
       case 'custom': {
-        message = translate(req, 'zod.invalidInput');
+        message = translate(req)('zod.invalidInput');
 
         break;
       }
 
       case 'invalid_intersection_types': {
-        message = translate(req, 'zod.invalidIntersectionTypes');
+        message = translate(req)('zod.invalidIntersectionTypes');
 
         break;
       }

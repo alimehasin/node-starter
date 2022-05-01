@@ -1,22 +1,20 @@
 import { Request } from 'express';
+import { TranslationFn } from '../../types';
+import { getLocale } from '../helpers';
 import translations from './translations';
 
-function translate(req: Request, query: string, obj?: { [key: string]: string }): string {
-  const locale = req.acceptsLanguages()[0] === 'ar' ? 'ar' : 'en';
-  let data = translations[locale];
+const translate = (req: Request): TranslationFn => {
+  return (query) => {
+    const locale = getLocale(req);
+    let data = translations[locale];
 
-  const keys = query.split('.');
-  keys.forEach((key) => {
-    data = data[key];
-  });
-
-  if (obj) {
-    Object.entries(obj).forEach(([key, value]) => {
-      data = data.replace(`{${key}}`, `${value}`);
+    const keys = query.split('.');
+    keys.forEach((key) => {
+      data = data[key];
     });
-  }
 
-  return data;
-}
+    return data;
+  };
+};
 
 export default translate;

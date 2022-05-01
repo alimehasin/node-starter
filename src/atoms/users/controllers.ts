@@ -14,7 +14,7 @@ export const login: Handler = async (req, res) => {
   const user = await services._getByUsername(req, data.username);
 
   // Define login failed error
-  const loginFailureError = new SimpleError(400, translate(req, 'loginFailed'));
+  const loginFailureError = new SimpleError(400, translate(req)('loginFailed'));
 
   // Check for user existence
   if (!user) {
@@ -42,6 +42,7 @@ export const signup: Handler = async (req, res) => {
   const data = await schemas.signupValidator(req, req.body);
 
   // Create the user
+  // TODO: Fix this
   const user = await services.createUser(req, data);
 
   // Return response
@@ -51,7 +52,7 @@ export const signup: Handler = async (req, res) => {
 export const profile: Handler = async (req, res) => {
   // User should be authenticated
   if (!req.user) {
-    throw new SimpleError(500, translate(req, 'serverError'));
+    throw new SimpleError(500, translate(req)('serverError'));
   }
 
   // Get the user
@@ -63,7 +64,7 @@ export const profile: Handler = async (req, res) => {
 
 export const editProfile: Handler = async (req, res) => {
   if (!req.user) {
-    throw new SimpleError(500, translate(req, 'serverError'));
+    throw new SimpleError(500, translate(req)('serverError'));
   }
 
   const data = await schemas.editProfileValidator(req, req.body);
@@ -79,7 +80,7 @@ export const logout: Handler = async (req, res) => {
   res.clearCookie('user');
 
   // Translate logout message
-  const message = translate(req, 'logoutSuccess');
+  const message = translate(req)('logoutSuccess');
 
   if (!req.user) {
     return res.json({ message });
@@ -97,12 +98,12 @@ export const changePassword: Handler = async (req, res) => {
 
   // User should be authenticated
   if (!req.user) {
-    throw new SimpleError(500, translate(req, 'unknownError'));
+    throw new SimpleError(500, translate(req)('unknownError'));
   }
 
   // Make sure that the password correct
   if (!bcrypt.compareSync(data.oldPassword, req.user.password)) {
-    throw new SimpleError(400, translate(req, 'oldPasswordWrong'));
+    throw new SimpleError(400, translate(req)('oldPasswordWrong'));
   }
 
   // Change password
@@ -113,5 +114,5 @@ export const changePassword: Handler = async (req, res) => {
   );
 
   // Return response
-  return res.status(200).json({ message: translate(req, 'passwordUpdated') });
+  return res.status(200).json({ message: translate(req)('passwordUpdated') });
 };
