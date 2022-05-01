@@ -34,6 +34,7 @@ rules:
   class-methods-use-this: 'off'
   arrow-body-style: 'off'
   lines-between-class-members: 'off'
+  no-underscore-dangle: off
   import/extensions: 'off'
   import/prefer-default-export: 'off'
   import/no-extraneous-dependencies: 'off'
