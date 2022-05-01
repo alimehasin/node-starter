@@ -7,7 +7,7 @@ export const list: Handler = async (req, res) => {
   const query = schemas.query.parse(req.query);
 
   // Get all objects
-  const [count, objects] = await services.findMany(query);
+  const [count, objects] = await services.findMany(req, query);
 
   // Response
   return res.json({ count, results: objects });
@@ -22,7 +22,7 @@ export const create: Handler = async (req, res) => {
   const data = schemas.create.parse(req.body);
 
   // Create an object
-  const object = await services.create(data);
+  const object = await services.create(req, data);
 
   // Response
   return res.status(201).json(object);
@@ -33,7 +33,7 @@ export const update: Handler = async (req, res) => {
   const data = schemas.update.parse(req.body);
 
   // Update the object
-  const object = await services.update(res.locals.obj.id, data);
+  const object = await services.update(req, res.locals.obj.id, data);
 
   // Response
   return res.json(object);
@@ -41,7 +41,7 @@ export const update: Handler = async (req, res) => {
 
 export const destroy: Handler = async (req, res) => {
   // Destroy the object
-  await services.destroy(res.locals.obj.id);
+  await services.destroy(req, res.locals.obj.id);
 
   // Response
   return res.status(204).json();

@@ -9,7 +9,7 @@ import { translate } from '../../utils/i18n';
 export const login: Handler = async (req, res) => {
   const data = schemas.login.parse(req.body);
 
-  const user: any = await services.getUserByUsername(data.username, false);
+  const user: any = await services.getUserByUsername(req, data.username, false);
 
   // Check for password
   if (!user || !bcrypt.compareSync(data.password, user.password)) {
@@ -30,7 +30,7 @@ export const login: Handler = async (req, res) => {
 export const signup: Handler = async (req, res) => {
   const data = await schemas.signup.parseAsync(req.body);
 
-  const user = await services.createUser(data);
+  const user = await services.createUser(req, data);
 
   return res.status(200).json(user);
 };
@@ -40,7 +40,7 @@ export const profile: Handler = async (req, res) => {
     throw new SimpleError(500, translate(req, 'serverError'));
   }
 
-  const user = await services.getUserById(req.user.id);
+  const user = await services.getUserById(req, req.user.id);
 
   return res.status(200).json(user);
 };
@@ -55,7 +55,7 @@ export const logout: Handler = async (req, res) => {
     return res.json({ message });
   }
 
-  await services.setRevokeTokensBefore(req.user.username);
+  await services.setRevokeTokensBefore(req, req.user.username);
 
   return res.json({ message });
 };
@@ -73,7 +73,11 @@ export const changePassword: Handler = async (req, res) => {
     throw new SimpleError(400, translate(req, 'oldPasswordWrong'));
   }
 
-  await services.setPassword(req.user.username, bcrypt.hashSync(data.newPassword, 10));
+  await services.setPassword(
+    req,
+    req.user.username,
+    bcrypt.hashSync(data.newPassword, 10)
+  );
 
   return res.status(200).json({ message: translate(req, 'passwordUpdated') });
 };
