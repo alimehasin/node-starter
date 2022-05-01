@@ -14,9 +14,6 @@ program
   .action(async (name, { Crud }) => {
     // Create the atom
     await actions.makeAtom(name, Crud);
-
-    // Add atom route
-    addAtomRoute(name);
   });
 
 program.command('root-user').action(async () => {

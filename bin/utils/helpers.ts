@@ -1,7 +1,7 @@
-import _ from 'lodash';
 import path from 'path';
 import fse from 'fs-extra';
 import { atomField, addAnotherField } from './inquiries';
+import { AtomName } from './types';
 
 export const getAtomFields = async () => {
   const fields = [];
@@ -43,11 +43,11 @@ export const copySchemas = async (src: string, dest: string, fields: any[]) => {
 
   fields.forEach((field) => {
     if (field.type === 'String') {
-      schemas += `  ${field.name}: z.string(),\n`;
+      schemas += `\t${field.name}: z.string(),\n`;
     } else if (field.type === 'Int' || field.type === 'Float') {
-      schemas += `  ${field.name}: z.number(),\n`;
+      schemas += `\t${field.name}: z.number(),\n`;
     } else if (field.type === 'DateTime') {
-      schemas += `  ${field.name}: z.string().transform(Date),\n`;
+      schemas += `\t${field.name}: z.string().transform(Date),\n`;
     }
   });
 
@@ -56,14 +56,40 @@ export const copySchemas = async (src: string, dest: string, fields: any[]) => {
   await fse.writeFile(path.join(dest, 'schemas.ts'), content, { encoding: 'utf-8' });
 };
 
-export const copyCrudAtom = async (name: string, src: string, dest: string) => {
+export const copyTypes = async (
+  namePascalCase: string,
+  src: string,
+  dest: string,
+  fields: any[]
+) => {
+  let content = await fse.readFile(path.join(src, 'types.ts'), { encoding: 'utf-8' });
+
+  content = content.replace('Object', namePascalCase);
+
+  let types = '';
+
+  fields.forEach((field) => {
+    if (field.type === 'String' || field.type === 'DateTime') {
+      types += `\t${field.name}: string;\n`;
+    } else if (field.type === 'Int' || field.type === 'Float') {
+      types += `\t${field.name}: number;\n`;
+    }
+  });
+
+  types = types.slice(0, -1);
+  content = content.replace('//_0', types);
+  await fse.writeFile(path.join(dest, 'types.ts'), content, { encoding: 'utf-8' });
+};
+
+export const copyCrudAtom = async (name: AtomName, src: string, dest: string) => {
   // Get atom fields
   const fields = await getAtomFields();
 
   // List of promises
   const promises: Promise<void>[] = [
-    addPrismaModel(_.startCase(name).replace(/ /g, ''), fields),
+    addPrismaModel(name.pascalCase, fields),
     copySchemas(src, dest, fields),
+    copyTypes(name.pascalCase, src, dest, fields),
   ];
 
   // Exact copy
@@ -79,21 +105,20 @@ export const copyCrudAtom = async (name: string, src: string, dest: string) => {
       encoding: 'utf-8',
     });
 
-    const modified = general.replace(/object/g, _.camelCase(name));
+    const modified = general.replace(/object/g, name.camelCase);
     promises.push(fse.writeFile(path.join(dest, file), modified));
   });
 
   await Promise.all(promises);
 };
 
-export const copyBaseAtom = async (name: string, src: string, dest: string) => {
+export const copyBaseAtom = async (name: AtomName, src: string, dest: string) => {
   await fse.copy(src, dest);
 };
 
-export const addAtomRoute = (name: string) => {
-  const atomName = `${name}s`;
-  const imp = `import ${atomName} from './${atomName}';\n\nc`;
-  const use = `router.use('/${atomName}', ${atomName});\n\ne`;
+export const addAtomRoute = (name: AtomName) => {
+  const imp = `import ${name.camelCase} from './${name.kebabCase}';\n\nc`;
+  const use = `router.use('/${name.camelCase}', ${name.camelCase});\n\ne`;
   const routerFilePath = path.join(process.cwd(), '/src/atoms/router.ts');
 
   let file = fse.readFileSync(routerFilePath, { encoding: 'utf-8' });

@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 import * as services from './services';
-import { SimpleError } from '../../../src/utils/errors';
-import { translate } from '../../../src/utils/i18n';
+import { SimpleError } from '../../utils/errors';
+import { translate } from '../../utils/i18n';
 
 export const getObject: Handler = async (req, res, next) => {
   const obj = await services._getById(req, req.params.id);
