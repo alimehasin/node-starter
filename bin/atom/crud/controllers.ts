@@ -15,7 +15,7 @@ export const list: Handler = async (req, res) => {
 
 export const retrieve: Handler = async (req, res) => {
   // Get _object
-  const _object = await services.findOneById(req.object.id);
+  const _object = await services.findOneById(req, req.object.id);
 
   // Return response
   return res.json(_object);
@@ -37,7 +37,7 @@ export const update: Handler = async (req, res) => {
   const data = schemas.update.parse(req.body);
 
   // Update the _object
-  const _object = await services.update(req, res.locals.obj.id, data);
+  const _object = await services.update(req, req.object, data);
 
   // Response
   return res.json(_object);
