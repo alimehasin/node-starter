@@ -105,8 +105,12 @@ export const copyCrudAtom = async (name: AtomName, src: string, dest: string) =>
       encoding: 'utf-8',
     });
 
-    const modified = general.replace(/_object/g, name.camelCase);
-    promises.push(fse.writeFile(path.join(dest, file), modified));
+    let content = general;
+
+    content = content.replace(/_object/g, name.camelCase);
+    content = content.replace(/_Object/g, name.pascalCase);
+
+    promises.push(fse.writeFile(path.join(dest, file), content));
   });
 
   await Promise.all(promises);

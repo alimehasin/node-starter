@@ -1,6 +1,12 @@
 import { Request } from 'express';
+import { _Object } from '@prisma/client';
 import type * as Schema from './schemas';
+import { _ObjectShape } from './types';
 import prisma from '../../prisma';
+
+export const shape = (_object: _Object): _ObjectShape => ({
+  ..._object,
+});
 
 export const _getById = async (req: Request, id: string) => {
   const _object = await prisma._object.findUnique({ where: { id } });
