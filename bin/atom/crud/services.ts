@@ -2,6 +2,12 @@ import { Request } from 'express';
 import type * as Schema from './schemas';
 import prisma from '../../prisma';
 
+export const _getById = async (req: Request, id: string) => {
+  const object = await prisma.object.findUnique({ where: { id } });
+
+  return object;
+};
+
 export const findOneById = async (req: Request, id: string) => {
   const object = await prisma.object.findUnique({ where: { id } });
 
