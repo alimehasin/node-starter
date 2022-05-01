@@ -1,5 +1,5 @@
-import path from 'path';
 import _ from 'lodash';
+import path from 'path';
 import fse from 'fs-extra';
 import { atomField, addAnotherField } from './inquiries';
 
@@ -21,7 +21,7 @@ export const getAtomFields = async () => {
 
 export const addPrismaModel = async (name: string, fields: any[]) => {
   let model = `
-model ${_.capitalize(name)} {
+model ${name} {
   id String @id @default(uuid())
 `;
 
@@ -62,7 +62,7 @@ export const copyCrudAtom = async (name: string, src: string, dest: string) => {
 
   // List of promises
   const promises: Promise<void>[] = [
-    addPrismaModel(name, fields),
+    addPrismaModel(_.startCase(name).replace(/ /g, ''), fields),
     copySchemas(src, dest, fields),
   ];
 
@@ -79,7 +79,7 @@ export const copyCrudAtom = async (name: string, src: string, dest: string) => {
       encoding: 'utf-8',
     });
 
-    const modified = general.replace(/object/g, name);
+    const modified = general.replace(/object/g, _.camelCase(name));
     promises.push(fse.writeFile(path.join(dest, file), modified));
   });
 
