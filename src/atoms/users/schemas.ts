@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
+import { Request } from 'express';
 import { z } from 'zod';
 import prisma from '../../prisma';
+import { translate } from '../../utils/i18n';
 
 const fields = {
   username: z.string().min(2).max(32),
@@ -13,18 +15,27 @@ export const login = z.object({
 });
 
 export const signup = z.object({
-  // TODO: Translate this custom error
-  username: fields.username.refine(async (username) => {
-    const user = await prisma.user.findUnique({ where: { username } });
-
-    return !user;
-  }),
-
+  username: fields.username,
   password: fields.password.transform((value) => bcrypt.hash(value, 12)),
   firstName: z.string().min(2).max(32).optional(),
   lastName: z.string().min(2).max(32).optional(),
   email: z.string().email().optional(),
 });
+
+export const signupValidator = (req: Request, body: any) => {
+  const schema = signup.extend({
+    username: signup.shape.username.refine(
+      async (username) => {
+        const user = await prisma.user.findUnique({ where: { username } });
+
+        return !user;
+      },
+      { message: translate(req, 'usernameExists') }
+    ),
+  });
+
+  return schema.parseAsync(body);
+};
 
 export const changePassword = z.object({
   oldPassword: z.string(),

@@ -39,7 +39,7 @@ export const login: Handler = async (req, res) => {
 
 export const signup: Handler = async (req, res) => {
   // Parse data
-  const data = await schemas.signup.parseAsync(req.body);
+  const data = await schemas.signupValidator(req, req.body);
 
   // Create the user
   const user = await services.createUser(req, data);
