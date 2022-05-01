@@ -1,8 +1,8 @@
-import type { Request, Response } from 'express';
+import type { Handler } from 'express';
 import * as schemas from './schemas';
 import * as services from './services';
 
-export const list = async (req: Request, res: Response) => {
+export const list: Handler = async (req, res) => {
   // Validate query
   const query = schemas.query.parse(req.query);
 
@@ -13,7 +13,7 @@ export const list = async (req: Request, res: Response) => {
   return res.json({ count, results: objects });
 };
 
-export const create = async (req: Request, res: Response) => {
+export const create: Handler = async (req, res) => {
   // Validate data
   const data = schemas.create.parse(req.body);
 
@@ -24,11 +24,11 @@ export const create = async (req: Request, res: Response) => {
   return res.status(201).json(object);
 };
 
-export const retrieve = async (req: Request, res: Response) => {
+export const retrieve: Handler = async (req, res) => {
   return res.json(res.locals.obj);
 };
 
-export const update = async (req: Request, res: Response) => {
+export const update: Handler = async (req, res) => {
   // Validate data
   const data = schemas.update.parse(req.body);
 
@@ -39,7 +39,7 @@ export const update = async (req: Request, res: Response) => {
   return res.json(object);
 };
 
-export const destroy = async (req: Request, res: Response) => {
+export const destroy: Handler = async (req, res) => {
   // Destroy the object
   await services.destroy(res.locals.obj.id);
 

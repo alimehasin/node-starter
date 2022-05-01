@@ -1,8 +1,8 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { Handler } from 'express';
 import { z } from 'zod';
 import generateZodErrorMap from '../utils/errors/zod';
 
-const setZodErrors = async (req: Request, res: Response, next: NextFunction) => {
+const setZodErrors: Handler = async (req, res, next) => {
   z.setErrorMap(generateZodErrorMap(req));
 
   return next();

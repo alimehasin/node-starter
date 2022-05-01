@@ -1,8 +1,8 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { Handler } from 'express';
 import passport from 'passport';
 
 const authenticate = (tolerant = false) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  const handler: Handler = (req, res, next) => {
     passport.authenticate(
       tolerant ? 'jwt-tolerant' : 'jwt',
       { session: false },
@@ -23,6 +23,8 @@ const authenticate = (tolerant = false) => {
       }
     )(req, res, next);
   };
+
+  return handler;
 };
 
 export default authenticate;

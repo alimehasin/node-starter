@@ -1,4 +1,4 @@
-import type { Request, Response } from 'express';
+import type { Handler } from 'express';
 import bcrypt from 'bcrypt';
 import * as schemas from './schemas';
 import * as services from './services';
@@ -6,7 +6,7 @@ import { signAccessToken } from './helpers';
 import { SimpleError } from '../../utils/errors';
 import { translate } from '../../utils/i18n';
 
-export const login = async (req: Request, res: Response) => {
+export const login: Handler = async (req, res) => {
   const data = schemas.login.parse(req.body);
 
   const user: any = await services.getUserByUsername(data.username, false);
@@ -27,7 +27,7 @@ export const login = async (req: Request, res: Response) => {
     .json({ accessToken, user: reshapedUser });
 };
 
-export const signup = async (req: Request, res: Response) => {
+export const signup: Handler = async (req, res) => {
   const data = await schemas.signup.parseAsync(req.body);
 
   const user = await services.createUser(data);
@@ -35,7 +35,7 @@ export const signup = async (req: Request, res: Response) => {
   return res.status(200).json(user);
 };
 
-export const profile = async (req: Request, res: Response) => {
+export const profile: Handler = async (req, res) => {
   if (!req.user) {
     throw new SimpleError(500, translate(req, 'serverError'));
   }
@@ -45,7 +45,7 @@ export const profile = async (req: Request, res: Response) => {
   return res.status(200).json(user);
 };
 
-export const logout = async (req: Request, res: Response) => {
+export const logout: Handler = async (req, res) => {
   res.clearCookie('access-token');
   res.clearCookie('user');
 
@@ -60,7 +60,7 @@ export const logout = async (req: Request, res: Response) => {
   return res.json({ message });
 };
 
-export const changePassword = async (req: Request, res: Response) => {
+export const changePassword: Handler = async (req, res) => {
   const data = schemas.changePassword.parse(req.body);
 
   // Make sure that the user is logged in
