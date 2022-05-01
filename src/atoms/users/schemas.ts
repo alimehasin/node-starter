@@ -4,7 +4,7 @@ import prisma from '../../prisma';
 
 const fields = {
   username: z.string().min(2).max(32),
-  password: z.string().min(8).max(32),
+  password: z.string().min(8).max(64),
 };
 
 export const login = z.object({
