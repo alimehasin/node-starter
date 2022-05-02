@@ -28,6 +28,7 @@ settings:
 
 rules:
   curly: 'error'
+  no-console: 'off'
   no-unused-vars: 'off'
   no-await-in-loop: 'off'
   no-constant-condition: 'off'
