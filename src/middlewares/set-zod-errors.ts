@@ -1,11 +1,16 @@
 import type { Handler } from 'express';
 import { z } from 'zod';
-import generateZodErrorMap from '../utils/errors/zod';
+import { getLocale } from '../utils/helpers';
+import { zodErrorMaps } from '../utils/i18n';
 
-const setZodErrors = (): Handler => async (req, res, next) => {
-  z.setErrorMap(generateZodErrorMap(req));
+const setZodErrors = (): Handler => {
+  return (req, res, next) => {
+    const locale = getLocale(req);
 
-  return next();
+    z.setErrorMap(zodErrorMaps[locale]);
+
+    return next();
+  };
 };
 
 export default setZodErrors;
