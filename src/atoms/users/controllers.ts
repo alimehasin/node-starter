@@ -1,3 +1,4 @@
+import assert from 'assert';
 import type { Handler } from 'express';
 import bcrypt from 'bcrypt';
 import * as schemas from './schemas';
@@ -50,10 +51,7 @@ export const signup: Handler = async (req, res) => {
 };
 
 export const profile: Handler = async (req, res) => {
-  // User should be authenticated
-  if (!req.user) {
-    throw new SimpleError(500, translate(req)('serverError'));
-  }
+  assert(req.user);
 
   // Get the user
   const user = await services.getUserById(req, req.user.id);
@@ -63,9 +61,7 @@ export const profile: Handler = async (req, res) => {
 };
 
 export const editProfile: Handler = async (req, res) => {
-  if (!req.user) {
-    throw new SimpleError(500, translate(req)('serverError'));
-  }
+  assert(req.user);
 
   const data = await schemas.editProfileValidator(req, req.body);
 
@@ -75,16 +71,14 @@ export const editProfile: Handler = async (req, res) => {
 };
 
 export const logout: Handler = async (req, res) => {
+  assert(req.user);
+
   // Clear cookies
   res.clearCookie('access-token');
   res.clearCookie('user');
 
   // Translate logout message
   const message = translate(req)('logoutSuccess');
-
-  if (!req.user) {
-    return res.json({ message });
-  }
 
   // Set revokeTokensBefore field
   await services.setRevokeTokensBefore(req, req.user.username);
@@ -93,13 +87,10 @@ export const logout: Handler = async (req, res) => {
 };
 
 export const changePassword: Handler = async (req, res) => {
+  assert(req.user);
+
   // Parse data
   const data = schemas.changePassword.parse(req.body);
-
-  // User should be authenticated
-  if (!req.user) {
-    throw new SimpleError(500, translate(req)('unknownError'));
-  }
 
   // Make sure that the password correct
   if (!bcrypt.compareSync(data.oldPassword, req.user.password)) {
