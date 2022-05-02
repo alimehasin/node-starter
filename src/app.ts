@@ -57,7 +57,7 @@ if (secrets.ENVIRONMENT === 'development') {
 }
 
 // Zod set error map middleware
-app.use(setZodErrors);
+app.use(setZodErrors());
 
 // Routers
 app.use(router);
