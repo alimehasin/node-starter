@@ -1,26 +1,10 @@
 export default {
-  zod: {
-    required: 'This field is required',
-    invalid: 'Invalid',
-    invalidType: 'Invalid type',
-    invalidInput: 'Invalid input',
-    invalidArguments: 'Invalid function arguments',
-    invalidReturnType: 'Invalid function return type',
-    invalidDate: 'Invalid date',
-    invalidIntersectionTypes: 'Intersection results could not be merged',
-    stringMustContain: 'String length must contain',
-    atLeast: 'at least',
-    atMost: 'at most',
-    characters: 'character',
-  },
-
   loginFailed: 'Unable to login with the provided credentials',
   serverError: 'Something went wrong',
   usernameExists: 'A user with this username already exists',
   emailUsed: 'A user with this email already exists',
-  unknownError: 'Unknown error',
-  oldPasswordWrong: 'Old password is not correct',
+  incorrectOldPassword: 'Old password is not correct',
   passwordUpdated: 'Your password has been successfully updated',
   notFound: 'Resource not found',
-  logoutSuccess: 'Logged out successfully',
+  logoutSucceed: 'Logged out successfully',
 };

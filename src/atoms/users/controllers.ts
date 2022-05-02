@@ -78,7 +78,7 @@ export const logout: Handler = async (req, res) => {
   res.clearCookie('user');
 
   // Translate logout message
-  const message = translate(req)('logoutSuccess');
+  const message = translate(req)('logoutSucceed');
 
   // Set revokeTokensBefore field
   await services.setRevokeTokensBefore(req, req.user.username);
@@ -94,7 +94,7 @@ export const changePassword: Handler = async (req, res) => {
 
   // Make sure that the password correct
   if (!bcrypt.compareSync(data.oldPassword, req.user.password)) {
-    throw new SimpleError(400, translate(req)('oldPasswordWrong'));
+    throw new SimpleError(400, translate(req)('incorrectOldPassword'));
   }
 
   // Change password

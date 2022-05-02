@@ -1,26 +1,10 @@
 export default {
-  zod: {
-    required: 'هذه الحقل مطلوب',
-    invalid: 'غير صالح',
-    invalidType: 'نوع بيانات غير صالح',
-    invalidInput: 'ادخال غير صالح',
-    invalidArguments: 'وسيطات دالة غير صالحة',
-    invalidReturnType: 'نوع إرجاع دالة غير صالح',
-    invalidDate: 'تاريخ غير صالح',
-    invalidIntersectionTypes: 'تعذر دمج نتائج التقاطع',
-    stringMustContain: 'يجب ان يكون طول النص',
-    atLeast: 'على الاقل',
-    atMost: 'على الاكثر',
-    characters: 'حرف',
-  },
-
   loginFailed: 'لا يمكن تسجيل الدخول باستعمال اسم المستخدم وكلمة السر هذه',
   serverError: 'ثمتة خطأ ما',
   usernameExists: 'اسم المستخدم هذه مسجل',
   emailUsed: 'هذه البريد الاكتروني مستخدم من قبل مستخدم اخر',
-  unknownError: 'خطأ غير معروف',
-  oldPasswordWrong: 'كلمة السر القديمة غير صحيحة',
+  incorrectOldPassword: 'كلمة السر القديمة غير صحيحة',
   passwordUpdated: 'تم تعديم كلمة السر الخاصة بك',
   notFound: 'العنصر غير موجود',
-  logoutSuccess: 'تم تسجيل الخروج بنجاح',
+  logoutSucceed: 'تم تسجيل الخروج بنجاح',
 };
