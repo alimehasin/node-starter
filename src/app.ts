@@ -7,12 +7,12 @@ import morgan from 'morgan';
 import passport from 'passport';
 import swaggerUi from 'swagger-ui-express';
 import router from './atoms/router';
-import { setZodErrors } from './middlewares';
+import { setZodErrors, parseQueryPrimitives } from './middlewares';
 import { secrets } from './utils';
 import { errorHandler } from './utils/errors';
 import * as strategies from './utils/auth';
-import specs from '../openapi.json';
 import { CLIENT_ORIGIN } from './utils/secrets';
+import specs from '../openapi.json';
 
 // Initialize the application
 const app: Application = express();
@@ -37,6 +37,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Parse incoming requests cookies
 app.use(cookieParser(secrets.SECRET_KEY));
+
+// Convert req.query fields into their appropriate type
+app.use(parseQueryPrimitives());
 
 // Logging
 const format =
