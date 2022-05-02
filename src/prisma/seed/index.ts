@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { logger } from '../../utils';
 
 const prisma = new PrismaClient();
 
@@ -9,7 +8,7 @@ const main = async () => {
 
 main()
   .catch((error) => {
-    logger.error(error);
+    console.error(error);
   })
   .finally(() => {
     prisma.$disconnect();

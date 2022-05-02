@@ -1,6 +1,6 @@
 import './config';
 import app from './app';
-import { crons, logger } from './utils';
+import { crons } from './utils';
 import { PORT, ENVIRONMENT } from './utils/secrets';
 
 // Start listening
@@ -9,9 +9,9 @@ const server = app.listen(PORT, () => {
   crons.start();
 
   if (ENVIRONMENT === 'development') {
-    logger.info(`💻 Started on http://localhost:${PORT}`);
+    console.log(`💻 Started on http://localhost:${PORT}`);
   } else {
-    logger.info(`💻 Started on port ${PORT}`);
+    console.log(`💻 Started on port ${PORT}`);
   }
 });
 

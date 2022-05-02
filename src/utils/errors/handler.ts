@@ -4,7 +4,6 @@ import { Prisma } from '@prisma/client';
 import { ZodError } from 'zod';
 import SimpleError from './simple';
 import { translate } from '../i18n';
-import logger from '../logger';
 import { ENVIRONMENT } from '../secrets';
 
 const types = {
@@ -19,7 +18,7 @@ const errorHandler: ErrorRequestHandler = async (error, req, res, next) => {
   const t = translate(req);
 
   if (ENVIRONMENT === 'development') {
-    logger.error(error);
+    console.error(error);
   }
 
   // Simple error

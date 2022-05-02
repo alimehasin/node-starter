@@ -4,7 +4,6 @@ import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { copyCrudAtom, copyBaseAtom, addAtomRoute } from './helpers';
 import { AtomName } from './types';
-import { logger } from '../../src/utils';
 
 export const makeAtom = async (_name: string, crud = false) => {
   const name: AtomName = {
@@ -36,5 +35,5 @@ export const createRootUser = async (
     },
   });
 
-  logger.info(user.username);
+  console.log(user.username);
 };
