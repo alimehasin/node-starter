@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { zod } from "../../utils";
+import { z } from 'zod';
+import { zod } from '../../utils';
 
 export const query = z.object({
   ...zod.pagination,
