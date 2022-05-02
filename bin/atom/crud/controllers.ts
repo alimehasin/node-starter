@@ -37,7 +37,7 @@ export const update: Handler = async (req, res) => {
   const data = schemas.update.parse(req.body);
 
   // Update the _object
-  const _object = await services.update(req, req.object, data);
+  const _object = await services.update(req, req.object.id, data);
 
   // Response
   return res.json(_object);
