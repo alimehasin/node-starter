@@ -21,6 +21,12 @@ export const _getUserById = async (id: string): Promise<User | null> => {
   return user;
 };
 
+export const _getUserByEmail = async (email: string): Promise<User | null> => {
+  const user = await prisma.user.findUnique({ where: { email } });
+
+  return user;
+};
+
 export const _getUserByUsername = async (username: string): Promise<User | null> => {
   const user = await prisma.user.findUnique({ where: { username } });
 

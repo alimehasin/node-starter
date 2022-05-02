@@ -2,8 +2,7 @@ import assert from 'assert';
 import bcrypt from 'bcrypt';
 import { Request } from 'express';
 import { z } from 'zod';
-import prisma from '../../prisma';
-import { SimpleError } from '../../utils/errors';
+import * as services from './services';
 import { translate } from '../../utils/i18n';
 
 const fields = {
@@ -28,7 +27,7 @@ export const signupValidator = (req: Request, body: any) => {
   const schema = signup.extend({
     username: signup.shape.username.refine(
       async (username) => {
-        const user = await prisma.user.findUnique({ where: { username } });
+        const user = await services._getUserByUsername(username);
 
         return !user;
       },
@@ -37,7 +36,11 @@ export const signupValidator = (req: Request, body: any) => {
 
     email: signup.shape.email.refine(
       async (email) => {
-        const user = await prisma.user.findUnique({ where: { email } });
+        if (!email) {
+          return true;
+        }
+
+        const user = await services._getUserByEmail(email);
 
         return !user;
       },
@@ -57,11 +60,13 @@ export const editProfileValidator = (req: Request, body: any) => {
     .extend({
       username: editProfile.shape.username.refine(
         async (username) => {
-          if (req.user?.username === username) {
+          assert(req.user);
+
+          if (!username || req.user.username === username) {
             return true;
           }
 
-          const user = await prisma.user.findUnique({ where: { username } });
+          const user = await services._getUserByUsername(username);
 
           return !user;
         },
@@ -70,11 +75,13 @@ export const editProfileValidator = (req: Request, body: any) => {
 
       email: editProfile.shape.email.refine(
         async (email) => {
-          if (req.user?.email === email) {
+          assert(req.user);
+
+          if (!email || req.user.email === email) {
             return true;
           }
 
-          const user = await prisma.user.findUnique({ where: { email } });
+          const user = await services._getUserByEmail(email);
 
           return !user;
         },
