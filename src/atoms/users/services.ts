@@ -1,26 +1,30 @@
 import _ from 'lodash';
 import { Request } from 'express';
-import { Prisma, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import * as schemas from './schemas';
-import prisma from '../../prisma';
 import { UserShape } from './types';
-
-export const _getById = async (req: Request, id: string) => {
-  const user = await prisma.user.findUnique({ where: { id } });
-
-  return user;
-};
-
-export const _getByUsername = async (req: Request, username: string) => {
-  const user = await prisma.user.findUnique({ where: { username } });
-
-  return user;
-};
+import prisma from '../../prisma';
 
 export const shape = (user: User): UserShape => {
   return {
     ..._.pick(user, ['id', 'username', 'firstName', 'lastName', 'email']),
   };
+};
+
+export const shapeNullable = (user: User | null): UserShape | null => {
+  return user ? shape(user) : null;
+};
+
+export const _getUserById = async (id: string): Promise<User | null> => {
+  const user = await prisma.user.findUnique({ where: { id } });
+
+  return user;
+};
+
+export const _getUserByUsername = async (username: string): Promise<User | null> => {
+  const user = await prisma.user.findUnique({ where: { username } });
+
+  return user;
 };
 
 export const createUser = async (
@@ -36,18 +40,18 @@ export const getUserById = async (
   req: Request,
   id: string
 ): Promise<UserShape | null> => {
-  const user = await prisma.user.findUnique({ where: { id } });
+  const user = await _getUserById(id);
 
-  return user ? shape(user) : null;
+  return shapeNullable(user);
 };
 
 export const getUserByUsername = async (
   req: Request,
   username: string
 ): Promise<UserShape | null> => {
-  const user = await prisma.user.findUnique({ where: { username } });
+  const user = await _getUserByUsername(username);
 
-  return user ? shape(user) : null;
+  return shapeNullable(user);
 };
 
 export const setPassword = async (
@@ -57,16 +61,19 @@ export const setPassword = async (
 ): Promise<UserShape | null> => {
   const user = await prisma.user.update({ where: { username }, data: { password } });
 
-  return user ? shape(user) : null;
+  return shapeNullable(user);
 };
 
-export const setRevokeTokensBefore = async (req: Request, username: string) => {
+export const setRevokeTokensBefore = async (
+  req: Request,
+  username: string
+): Promise<UserShape | null> => {
   const user = await prisma.user.update({
     where: { username },
     data: { revokeTokensBefore: new Date() },
   });
 
-  return user ? shape(user) : null;
+  return shapeNullable(user);
 };
 
 export const editProfile = async (
@@ -76,5 +83,5 @@ export const editProfile = async (
 ): Promise<UserShape | null> => {
   const user = await prisma.user.update({ where: { id }, data });
 
-  return user ? shape(user) : null;
+  return shapeNullable(user);
 };

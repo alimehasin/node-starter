@@ -12,7 +12,7 @@ export const login: Handler = async (req, res) => {
   const data = schemas.login.parse(req.body);
 
   // Get the user from DB
-  const user = await services._getByUsername(req, data.username);
+  const user = await services._getUserByUsername(data.username);
 
   // Define login failed error
   const loginFailureError = new SimpleError(400, translate(req)('loginFailed'));
