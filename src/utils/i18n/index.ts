@@ -1,4 +1,4 @@
 import translate from './translate';
-import zodErrorMaps from './zod-error-maps';
+import zodErrorMaps, { setZodErrorMap } from './zod-error-maps';
 
-export { translate, zodErrorMaps };
+export { translate, zodErrorMaps, setZodErrorMap };
