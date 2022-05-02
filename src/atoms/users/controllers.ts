@@ -43,7 +43,6 @@ export const signup: Handler = async (req, res) => {
   const data = await schemas.signupValidator(req, req.body);
 
   // Create the user
-  // TODO: Fix this
   const user = await services.createUser(req, data);
 
   // Return response
@@ -63,10 +62,13 @@ export const profile: Handler = async (req, res) => {
 export const editProfile: Handler = async (req, res) => {
   assert(req.user);
 
+  // Validate input data
   const data = await schemas.editProfileValidator(req, req.body);
 
+  // Update profile
   const user = await services.editProfile(req, req.user.id, data);
 
+  // Return response
   return res.status(200).json(user);
 };
 
@@ -77,19 +79,20 @@ export const logout: Handler = async (req, res) => {
   res.clearCookie('access-token');
   res.clearCookie('user');
 
+  // Set revokeTokensBefore field
+  await services.setRevokeTokensBefore(req, req.user.id);
+
   // Translate logout message
   const message = translate(req)('logoutSucceed');
 
-  // Set revokeTokensBefore field
-  await services.setRevokeTokensBefore(req, req.user.username);
-
+  // Return response
   return res.json({ message });
 };
 
 export const changePassword: Handler = async (req, res) => {
   assert(req.user);
 
-  // Parse data
+  // Validate input data
   const data = schemas.changePassword.parse(req.body);
 
   // Make sure that the password correct
@@ -97,13 +100,14 @@ export const changePassword: Handler = async (req, res) => {
     throw new SimpleError(400, translate(req)('incorrectOldPassword'));
   }
 
+  // Hash password
+  const hashedPassword = await bcrypt.hash(data.newPassword, 10);
+
   // Change password
-  await services.setPassword(
-    req,
-    req.user.username,
-    bcrypt.hashSync(data.newPassword, 10)
-  );
+  await services.setPassword(req, req.user.id, hashedPassword);
+
+  const message = translate(req)('passwordUpdated');
 
   // Return response
-  return res.status(200).json({ message: translate(req)('passwordUpdated') });
+  return res.status(200).json({ message });
 };

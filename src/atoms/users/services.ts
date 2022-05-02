@@ -56,20 +56,20 @@ export const getUserByUsername = async (
 
 export const setPassword = async (
   req: Request,
-  username: string,
+  id: string,
   password: string
 ): Promise<UserShape | null> => {
-  const user = await prisma.user.update({ where: { username }, data: { password } });
+  const user = await prisma.user.update({ where: { id }, data: { password } });
 
   return shapeNullable(user);
 };
 
 export const setRevokeTokensBefore = async (
   req: Request,
-  username: string
+  id: string
 ): Promise<UserShape | null> => {
   const user = await prisma.user.update({
-    where: { username },
+    where: { id },
     data: { revokeTokensBefore: new Date() },
   });
 
