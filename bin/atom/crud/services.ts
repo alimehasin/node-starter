@@ -8,7 +8,17 @@ export const shape = (req: Request, _object: _Object): _ObjectShape => ({
   ..._object,
 });
 
-export const _getById = async (req: Request, id: string) => {
+export const shapeNullable = (
+  req: Request,
+  _object: _Object | null
+): _ObjectShape | null => {
+  return _object ? shape(req, _object) : null;
+};
+
+export const _get_ObjectById = async (
+  req: Request,
+  id: string
+): Promise<_Object | null> => {
   const _object = await prisma._object.findUnique({ where: { id } });
 
   return _object;
@@ -20,7 +30,7 @@ export const findOneById = async (
 ): Promise<_ObjectShape | null> => {
   const _object = await prisma._object.findUnique({ where: { id } });
 
-  return _object ? shape(req, _object) : null;
+  return shapeNullable(req, _object);
 };
 
 export const findMany = async (
@@ -53,7 +63,7 @@ export const update = async (
 ): Promise<_ObjectShape | null> => {
   const _object = await prisma._object.update({ where: { id }, data });
 
-  return _object ? shape(req, _object) : null;
+  return shapeNullable(req, _object);
 };
 
 export const destroy = async (req: Request, id: string) => {
