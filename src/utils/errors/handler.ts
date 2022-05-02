@@ -1,7 +1,9 @@
+import { AssertionError } from 'assert';
 import { ErrorRequestHandler } from 'express';
 import { Prisma } from '@prisma/client';
 import { ZodError } from 'zod';
 import SimpleError from './simple';
+import { translate } from '../i18n';
 import logger from '../logger';
 import { ENVIRONMENT } from '../secrets';
 
@@ -10,9 +12,12 @@ const types = {
   ZOD_FLATTENED: 'ZOD_FLATTENED',
   DB_OPERATION: 'DB_OPERATION',
   UNHANDLED_ERROR: 'UNHANDLED_ERROR',
+  SERVER_ERROR: 'SERVER_ERROR',
 };
 
 const errorHandler: ErrorRequestHandler = async (error, req, res, next) => {
+  const t = translate(req);
+
   if (ENVIRONMENT === 'development') {
     logger.error(error);
   }
@@ -30,6 +35,14 @@ const errorHandler: ErrorRequestHandler = async (error, req, res, next) => {
     return res.status(400).json({
       _type: types.ZOD_FLATTENED,
       ...error.flatten(),
+    });
+  }
+
+  // Assertion error
+  if (error instanceof AssertionError) {
+    return res.status(500).json({
+      _type: types.SERVER_ERROR,
+      detail: t('serverError'),
     });
   }
 
