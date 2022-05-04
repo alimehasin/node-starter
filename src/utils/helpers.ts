@@ -10,3 +10,10 @@ export function getLocale(req: Request) {
 
   return DEFAULT_LOCALE;
 }
+
+export function calcPaginationOffset(page: number, size: number) {
+  const skip = size * (page - 1);
+  const take = size;
+
+  return { skip, take };
+}
