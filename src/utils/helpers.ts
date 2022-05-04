@@ -17,3 +17,14 @@ export function calcPaginationOffset(page: number, size: number) {
 
   return { skip, take };
 }
+
+export function getPaginationInfo(
+  totalRows: number,
+  query: { page: number; pageSize: number; [key: string]: any }
+) {
+  const totalPages = Math.ceil(totalRows / query.pageSize);
+  const currentPage = query.page;
+  const { pageSize } = query;
+
+  return { totalRows, totalPages, currentPage, pageSize };
+}

@@ -7,10 +7,10 @@ export const list: Handler = async (req, res) => {
   const query = schemas.query.parse(req.query);
 
   // Get all _objects
-  const [count, _objects] = await services.findMany(req, query);
+  const data = await services.findMany(req, query);
 
   // Response
-  return res.json({ count, results: _objects });
+  return res.json(data);
 };
 
 export const retrieve: Handler = async (req, res) => {

@@ -3,7 +3,8 @@ import { _Object } from '@prisma/client';
 import type * as Schema from './schemas';
 import { _ObjectShape } from './types';
 import prisma from '../../prisma';
-import { calcPaginationOffset } from '../../utils/helpers';
+import { getPaginationInfo, calcPaginationOffset } from '../../utils/helpers';
+import { PaginatedResponse } from '../../types';
 
 export const shape = (req: Request, _object: _Object): _ObjectShape => ({
   ..._object,
@@ -37,16 +38,20 @@ export const findOneById = async (
 export const findMany = async (
   req: Request,
   query: Schema.Query
-): Promise<[number, _ObjectShape[]]> => {
+): Promise<PaginatedResponse<_ObjectShape>> => {
   const count = await prisma._object.count();
+  const paginationInfo = getPaginationInfo(count, query);
 
-  const pagination = calcPaginationOffset(query.page, query.pageSize);
+  const paginationOffset = calcPaginationOffset(query.page, query.pageSize);
 
   const _objects = await prisma._object.findMany({
-    ...pagination,
+    ...paginationOffset,
   });
 
-  return [count, _objects.map((_object) => shape(req, _object))];
+  return {
+    ...paginationInfo,
+    results: _objects.map((_object) => shape(req, _object)),
+  };
 };
 
 export const create = async (
