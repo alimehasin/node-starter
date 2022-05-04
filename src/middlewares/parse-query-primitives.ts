@@ -9,12 +9,19 @@ const parseQueryPrimitives = (): Handler => {
     return value === 'true';
   }
 
+  function isNumeric(value: any) {
+    // eslint-disable-next-line no-restricted-globals
+    return !isNaN(value) && !isNaN(parseFloat(value));
+  }
+
   return (req, res, next) => {
     const result: any = {};
 
     Object.entries(req.query).forEach(([key, value], i) => {
       if (isBoolean(value)) {
         result[key] = parseBoolean(value);
+      } else if (isNumeric(value)) {
+        result[key] = parseFloat(value as any);
       } else {
         result[key] = value;
       }
