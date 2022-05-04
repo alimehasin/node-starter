@@ -3,6 +3,7 @@ import { _Object } from '@prisma/client';
 import type * as Schema from './schemas';
 import { _ObjectShape } from './types';
 import prisma from '../../prisma';
+import { calcPaginationOffset } from '../../utils/helpers';
 
 export const shape = (req: Request, _object: _Object): _ObjectShape => ({
   ..._object,
@@ -39,9 +40,10 @@ export const findMany = async (
 ): Promise<[number, _ObjectShape[]]> => {
   const count = await prisma._object.count();
 
+  const pagination = calcPaginationOffset(query.page, query.pageSize);
+
   const _objects = await prisma._object.findMany({
-    skip: query.skip,
-    take: query.take,
+    ...pagination,
   });
 
   return [count, _objects.map((_object) => shape(req, _object))];
