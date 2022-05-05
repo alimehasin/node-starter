@@ -42,14 +42,12 @@ export const copySchemas = async (src: string, dest: string, fields: any[]) => {
   let schemas = '';
 
   fields.forEach((field) => {
-    if (field.type === 'String') {
+    if (field.type === 'String' || field.type === 'DateTime') {
       schemas += `\t${field.name}: z.string(),\n`;
     } else if (field.type === 'Int' || field.type === 'Float') {
       schemas += `\t${field.name}: z.number(),\n`;
     } else if (field.type === 'Boolean') {
       schemas += `\t${field.name}: z.boolean(),\n`;
-    } else if (field.type === 'DateTime') {
-      schemas += `\t${field.name}: z.string().transform(Date),\n`;
     }
   });
 
