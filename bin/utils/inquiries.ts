@@ -70,7 +70,7 @@ export const atomField = () => {
     {
       name: 'type',
       type: 'list',
-      choices: ['String', 'Int', 'Float', 'DateTime'],
+      choices: ['String', 'Int', 'Float', 'Boolean', 'DateTime'],
       message: 'Field name',
     },
   ]);
