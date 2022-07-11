@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import passport from 'passport';
 import swaggerUi from 'swagger-ui-express';
 import router from './atoms/router';
-import { setZodErrors, parseQueryPrimitives } from './middlewares';
+import { setZodErrors, parseQueryPrimitives } from './middleware';
 import { secrets } from './utils';
 import { errorHandler } from './utils/errors';
 import * as strategies from './utils/auth';
