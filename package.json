@@ -5,6 +5,7 @@
   "author": "Ali Mehasin",
   "license": "GPL-3.0",
   "bin": "dist/src/server.js",
+  "private": true,
   "repository": {
     "url": "https://github.com/SoftshapeCode/node-starter"
   },
