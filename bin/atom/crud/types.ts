@@ -7,6 +7,6 @@ export interface ObjectShape {
 }
 
 
-export type Query = z.infer<typeof schemas.query>;
-export type Create = z.infer<typeof schemas.create>;
-export type Update = z.infer<typeof schemas.update>;
+export type QuerySchema = z.infer<typeof schemas.query>;
+export type CreateSchema = z.infer<typeof schemas.create>;
+export type UpdateSchema = z.infer<typeof schemas.update>;

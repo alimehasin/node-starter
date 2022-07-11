@@ -1,6 +1,5 @@
 import { _Object } from '@prisma/client';
-import type * as Schema from './schemas';
-import { _ObjectShape } from './types';
+import type { _ObjectShape, CreateSchema, UpdateSchema, QuerySchema } from './types';
 import prisma from '../../prisma';
 import { getPaginationInfo, calcPaginationOffset } from '../../utils/helpers';
 import { PaginatedResponse } from '../../types';
@@ -10,7 +9,7 @@ export function shape(_object: _Object): _ObjectShape {
 }
 
 export function shapeNullable(_object: _Object | null): _ObjectShape | null {
-  return _object ? shape(req, _object) : null;
+  return _object ? shape(_object) : null;
 }
 
 export async function _get_ObjectById(id: string): Promise<_Object | null> {
@@ -22,11 +21,11 @@ export async function _get_ObjectById(id: string): Promise<_Object | null> {
 export async function findOneById(id: string): Promise<_ObjectShape | null> {
   const _object = await prisma._object.findUnique({ where: { id } });
 
-  return shapeNullable(req, _object);
+  return shapeNullable(_object);
 }
 
 export async function findMany(
-  query: Schema.Query
+  query: QuerySchema
 ): Promise<PaginatedResponse<_ObjectShape>> {
   const count = await prisma._object.count();
   const paginationInfo = getPaginationInfo(count, query);
@@ -38,23 +37,23 @@ export async function findMany(
 
   return {
     ...paginationInfo,
-    results: _objects.map((_object) => shape(req, _object)),
+    results: _objects.map(shape),
   };
 }
 
-export async function create(data: Schema.Create): Promise<_ObjectShape> {
+export async function create(data: CreateSchema): Promise<_ObjectShape> {
   const _object = await prisma._object.create({ data });
 
-  return shape(req, _object);
+  return shape(_object);
 }
 
 export async function update(
   id: string,
-  data: Schema.Update
+  data: UpdateSchema
 ): Promise<_ObjectShape | null> {
   const _object = await prisma._object.update({ where: { id }, data });
 
-  return shapeNullable(req, _object);
+  return shapeNullable(_object);
 }
 
 export async function destroy(id: string): Promise<void> {

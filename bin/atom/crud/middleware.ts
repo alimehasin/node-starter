@@ -4,7 +4,7 @@ import { SimpleError } from '../../utils/errors';
 import { translate } from '../../utils/i18n';
 
 export const getObject: Handler = async (req, res, next) => {
-  const _object = await services._get_ObjectById(req, req.params.id);
+  const _object = await services._get_ObjectById(req.params.id);
 
   // Ownership validation should be here
 
