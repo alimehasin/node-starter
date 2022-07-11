@@ -1,7 +1,11 @@
 import type { Handler } from 'express';
 import passport from 'passport';
 
-const authenticate = (tolerant = false) => {
+interface AuthenticationParams {
+  tolerant?: boolean;
+}
+
+const authenticate = ({ tolerant = false }: AuthenticationParams = {}) => {
   const handler: Handler = (req, res, next) => {
     passport.authenticate(
       tolerant ? 'jwt-tolerant' : 'jwt',
