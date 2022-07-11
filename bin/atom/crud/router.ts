@@ -1,6 +1,6 @@
 import Router from 'express';
 import * as controllers from './controllers';
-import { getObject } from './middlewares';
+import { getObject } from './middleware';
 
 const router = Router();
 

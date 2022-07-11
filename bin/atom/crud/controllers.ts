@@ -7,7 +7,7 @@ export const list: Handler = async (req, res) => {
   const query = schemas.query.parse(req.query);
 
   // Get all _objects
-  const data = await services.findMany(req, query);
+  const data = await services.findMany(query);
 
   // Response
   return res.json(data);
@@ -15,7 +15,7 @@ export const list: Handler = async (req, res) => {
 
 export const retrieve: Handler = async (req, res) => {
   // Get _object
-  const _object = await services.findOneById(req, req.object.id);
+  const _object = await services.findOneById(req.object.id);
 
   // Return response
   return res.json(_object);
@@ -26,7 +26,7 @@ export const create: Handler = async (req, res) => {
   const data = schemas.create.parse(req.body);
 
   // Create an _object
-  const _object = await services.create(req, data);
+  const _object = await services.create(data);
 
   // Response
   return res.status(201).json(_object);
@@ -37,7 +37,7 @@ export const update: Handler = async (req, res) => {
   const data = schemas.update.parse(req.body);
 
   // Update the _object
-  const _object = await services.update(req, req.object.id, data);
+  const _object = await services.update(req.object.id, data);
 
   // Response
   return res.json(_object);
@@ -45,7 +45,7 @@ export const update: Handler = async (req, res) => {
 
 export const destroy: Handler = async (req, res) => {
   // Destroy the _object
-  await services.destroy(req, req.object.id);
+  await services.destroy(req.object.id);
 
   // Response
   return res.status(204).json();

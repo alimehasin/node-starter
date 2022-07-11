@@ -1,4 +1,3 @@
-import { Request } from 'express';
 import { _Object } from '@prisma/client';
 import type * as Schema from './schemas';
 import { _ObjectShape } from './types';
@@ -6,42 +5,31 @@ import prisma from '../../prisma';
 import { getPaginationInfo, calcPaginationOffset } from '../../utils/helpers';
 import { PaginatedResponse } from '../../types';
 
-export const shape = (req: Request, _object: _Object): _ObjectShape => ({
-  ..._object,
-});
+export function shape(_object: _Object): _ObjectShape {
+  return { ..._object };
+}
 
-export const shapeNullable = (
-  req: Request,
-  _object: _Object | null
-): _ObjectShape | null => {
+export function shapeNullable(_object: _Object | null): _ObjectShape | null {
   return _object ? shape(req, _object) : null;
-};
+}
 
-export const _get_ObjectById = async (
-  req: Request,
-  id: string
-): Promise<_Object | null> => {
+export async function _get_ObjectById(id: string): Promise<_Object | null> {
   const _object = await prisma._object.findUnique({ where: { id } });
 
   return _object;
-};
+}
 
-export const findOneById = async (
-  req: Request,
-  id: string
-): Promise<_ObjectShape | null> => {
+export async function findOneById(id: string): Promise<_ObjectShape | null> {
   const _object = await prisma._object.findUnique({ where: { id } });
 
   return shapeNullable(req, _object);
-};
+}
 
-export const findMany = async (
-  req: Request,
+export async function findMany(
   query: Schema.Query
-): Promise<PaginatedResponse<_ObjectShape>> => {
+): Promise<PaginatedResponse<_ObjectShape>> {
   const count = await prisma._object.count();
   const paginationInfo = getPaginationInfo(count, query);
-
   const paginationOffset = calcPaginationOffset(query.page, query.pageSize);
 
   const _objects = await prisma._object.findMany({
@@ -52,27 +40,23 @@ export const findMany = async (
     ...paginationInfo,
     results: _objects.map((_object) => shape(req, _object)),
   };
-};
+}
 
-export const create = async (
-  req: Request,
-  data: Schema.Create
-): Promise<_ObjectShape> => {
+export async function create(data: Schema.Create): Promise<_ObjectShape> {
   const _object = await prisma._object.create({ data });
 
   return shape(req, _object);
-};
+}
 
-export const update = async (
-  req: Request,
+export async function update(
   id: string,
   data: Schema.Update
-): Promise<_ObjectShape | null> => {
+): Promise<_ObjectShape | null> {
   const _object = await prisma._object.update({ where: { id }, data });
 
   return shapeNullable(req, _object);
-};
+}
 
-export const destroy = async (req: Request, id: string) => {
+export async function destroy(id: string): Promise<void> {
   await prisma._object.delete({ where: { id } });
-};
+}
