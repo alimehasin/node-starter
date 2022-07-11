@@ -11,5 +11,11 @@ export type PaginatedResponse<T> = {
   totalPages: number;
   currentPage: number;
   pageSize: number;
-  results: T[];
+  data: T[];
 };
+
+export interface PaginationQuery {
+  page: number;
+  pageSize: number;
+  [key: string]: any;
+}

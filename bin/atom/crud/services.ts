@@ -1,7 +1,7 @@
-import { _Object } from '@prisma/client';
+import { Prisma, _Object } from '@prisma/client';
 import type { _ObjectShape, CreateSchema, UpdateSchema, QuerySchema } from './types';
 import prisma from '../../prisma';
-import { getPaginationInfo, calcPaginationOffset } from '../../utils/helpers';
+import { getPagination } from '../../utils/helpers';
 import { PaginatedResponse } from '../../types';
 
 export function shape(_object: _Object): _ObjectShape {
@@ -18,7 +18,7 @@ export async function _get_ObjectById(id: string): Promise<_Object | null> {
   return _object;
 }
 
-export async function findOneById(id: string): Promise<_ObjectShape | null> {
+export async function find_ObjectById(id: string): Promise<_ObjectShape | null> {
   const _object = await prisma._object.findUnique({ where: { id } });
 
   return shapeNullable(_object);
@@ -27,17 +27,19 @@ export async function findOneById(id: string): Promise<_ObjectShape | null> {
 export async function findMany(
   query: QuerySchema
 ): Promise<PaginatedResponse<_ObjectShape>> {
-  const count = await prisma._object.count();
-  const paginationInfo = getPaginationInfo(count, query);
-  const paginationOffset = calcPaginationOffset(query.page, query.pageSize);
+  const where: Prisma._ObjectWhereInput = {};
+
+  const count = await prisma._object.count({ where });
+  const { offset, info } = getPagination(count, query);
 
   const _objects = await prisma._object.findMany({
-    ...paginationOffset,
+    ...offset,
+    where,
   });
 
   return {
-    ...paginationInfo,
-    results: _objects.map(shape),
+    ...info,
+    data: _objects.map(shape),
   };
 }
 

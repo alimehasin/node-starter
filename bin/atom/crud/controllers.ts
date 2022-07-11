@@ -15,7 +15,7 @@ export const list: Handler = async (req, res) => {
 
 export const retrieve: Handler = async (req, res) => {
   // Get _object
-  const _object = await services.findOneById(req.object.id);
+  const _object = await services.find_ObjectById(req.object.id);
 
   // Return response
   return res.json(_object);

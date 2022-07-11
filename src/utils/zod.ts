@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { PAGE_SIZE } from './secrets';
 
-export const pagination = {
+export const paginationFields = {
   page: z.number().default(1),
   pageSize: z.number().default(PAGE_SIZE),
 };

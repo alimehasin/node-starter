@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { zod } from '../../utils';
+import { paginationFields } from '../../utils/zod';
 
 export const query = z.object({
-  ...zod.pagination,
+  ...paginationFields,
 });
 
 export const create = z.object({

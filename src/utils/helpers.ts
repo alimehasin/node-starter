@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { PaginationQuery } from '../types';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './constants';
 
 export function getLocale(req: Request) {
@@ -11,14 +12,14 @@ export function getLocale(req: Request) {
   return DEFAULT_LOCALE;
 }
 
-export function calcPaginationOffset(page: number, size: number) {
+function calcPaginationOffset(page: number, size: number) {
   const skip = size * (page - 1);
   const take = size;
 
   return { skip, take };
 }
 
-export function getPaginationInfo(
+function getPaginationInfo(
   totalRows: number,
   query: { page: number; pageSize: number; [key: string]: any }
 ) {
@@ -27,4 +28,11 @@ export function getPaginationInfo(
   const { pageSize } = query;
 
   return { totalRows, totalPages, currentPage, pageSize };
+}
+
+export function getPagination(count: number, query: PaginationQuery) {
+  const offset = calcPaginationOffset(query.page, query.pageSize);
+  const info = getPaginationInfo(count, query);
+
+  return { offset, info };
 }
