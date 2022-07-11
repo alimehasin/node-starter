@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import passport from 'passport';
 import swaggerUi from 'swagger-ui-express';
-import router from './atoms/router';
+import router from './atoms';
 import { setZodErrors, parseQueryPrimitives } from './middleware';
 import { secrets } from './utils';
 import { errorHandler } from './utils/errors';
