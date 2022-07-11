@@ -4,7 +4,7 @@ import { getLocale } from '../helpers';
 import translations from './translations';
 
 const translate = (req: Request): TranslationFn => {
-  return (query) => {
+  return (query, ...values: string[]) => {
     const keys = query.split('.');
     const locale = getLocale(req);
     let data = translations[locale];
@@ -16,6 +16,10 @@ const translate = (req: Request): TranslationFn => {
     // Check if the final result is not a string
     if (typeof data !== 'string') {
       return '';
+    }
+
+    for (let i = 0; i < values.length; i += 1) {
+      data = data.replace(`_${i}`, values[i]);
     }
 
     return data;
