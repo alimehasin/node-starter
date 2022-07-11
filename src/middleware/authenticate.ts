@@ -1,5 +1,6 @@
 import type { Handler } from 'express';
 import passport from 'passport';
+import { translate } from '../utils/i18n';
 
 interface AuthenticationParams {
   tolerant?: boolean;
@@ -7,18 +8,20 @@ interface AuthenticationParams {
 
 const authenticate = ({ tolerant = false }: AuthenticationParams = {}) => {
   const handler: Handler = (req, res, next) => {
+    const t = translate(req);
+
     passport.authenticate(
       tolerant ? 'jwt-tolerant' : 'jwt',
       { session: false },
       (error, user, info) => {
         if (error) {
           return res.status(500).json({
-            detail: 'We have some error in our authentication system please report this',
+            detail: t('serverError'),
           });
         }
 
         if (!user && !tolerant) {
-          return res.status(401).json({ detail: 'Unable to authenticate the user' });
+          return res.status(401).json({ detail: t('authFailed') });
         }
 
         req.user = user;

@@ -1,4 +1,5 @@
 export default {
+  authFailed: 'يتعذر التعرف على المستخدم',
   loginFailed: 'لا يمكن تسجيل الدخول باستعمال اسم المستخدم وكلمة السر هذه',
   serverError: 'ثمتة خطأ ما',
   usernameExists: 'اسم المستخدم هذه مسجل',

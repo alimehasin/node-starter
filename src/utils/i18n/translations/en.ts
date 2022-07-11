@@ -1,4 +1,5 @@
 export default {
+  authFailed: 'Unable to authenticate the user',
   loginFailed: 'Unable to login with the provided credentials',
   serverError: 'Something went wrong',
   usernameExists: 'A user with this username already exists',
