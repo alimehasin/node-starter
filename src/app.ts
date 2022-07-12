@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import passport from 'passport';
 import swaggerUi from 'swagger-ui-express';
 import router from './atoms';
-import { setZodErrors, parseQueryPrimitives } from './middleware';
+import { translation, setZodErrors, parseQueryPrimitives } from './middleware';
 import { secrets } from './utils';
 import { errorHandler } from './utils/errors';
 import * as strategies from './utils/auth';
@@ -61,6 +61,9 @@ if (secrets.ENVIRONMENT === 'development') {
 
 // Zod set error map middleware
 app.use(setZodErrors());
+
+// Set translation function
+app.use(translation);
 
 // Routers
 app.use(router);

@@ -1,4 +1,5 @@
 import { User as PrismaUser } from '@prisma/client';
+import { TranslationFn } from '.';
 
 declare global {
   namespace Express {
@@ -6,6 +7,7 @@ declare global {
 
     interface Request {
       object: any;
+      t: TranslationFn;
     }
   }
 }
