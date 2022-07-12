@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import { Request } from 'express';
 import { z } from 'zod';
 import * as services from './services';
-import { translate } from '../../utils/i18n';
 
 const fields = {
   username: z.string().min(2).max(32),
@@ -31,7 +30,7 @@ export const signupValidator = (req: Request, body: any) => {
 
         return !user;
       },
-      { message: translate(req)('usernameExists') }
+      { message: req.t('usernameExists') }
     ),
 
     email: signup.shape.email.refine(
@@ -44,7 +43,7 @@ export const signupValidator = (req: Request, body: any) => {
 
         return !user;
       },
-      { message: translate(req)('emailUsed') }
+      { message: req.t('emailUsed') }
     ),
   });
 
@@ -70,7 +69,7 @@ export const editProfileValidator = (req: Request, body: any) => {
 
           return !user;
         },
-        { message: translate(req)('usernameExists') }
+        { message: req.t('usernameExists') }
       ),
 
       email: editProfile.shape.email.refine(
@@ -85,7 +84,7 @@ export const editProfileValidator = (req: Request, body: any) => {
 
           return !user;
         },
-        { message: translate(req)('emailUsed') }
+        { message: req.t('emailUsed') }
       ),
     })
     .partial();

@@ -5,7 +5,6 @@ import * as schemas from './schemas';
 import * as services from './services';
 import { signAccessToken } from './helpers';
 import { SimpleError } from '../../utils/errors';
-import { translate } from '../../utils/i18n';
 
 export const login: Handler = async (req, res) => {
   // Validate input data
@@ -15,7 +14,7 @@ export const login: Handler = async (req, res) => {
   const user = await services._getUserByUsername(data.username);
 
   // Define login failed error
-  const loginFailureError = new SimpleError(400, translate(req)('loginFailed'));
+  const loginFailureError = new SimpleError(400, req.t('loginFailed'));
 
   // Check for user existence
   if (!user) {
@@ -83,7 +82,7 @@ export const logout: Handler = async (req, res) => {
   await services.setRevokeTokensBefore(req, req.user.id);
 
   // Translate logout message
-  const message = translate(req)('logoutSucceed');
+  const message = req.t('logoutSucceed');
 
   // Return response
   return res.json({ message });
@@ -97,7 +96,7 @@ export const changePassword: Handler = async (req, res) => {
 
   // Make sure that the password correct
   if (!bcrypt.compareSync(data.oldPassword, req.user.password)) {
-    throw new SimpleError(400, translate(req)('incorrectOldPassword'));
+    throw new SimpleError(400, req.t('incorrectOldPassword'));
   }
 
   // Hash password
@@ -106,7 +105,7 @@ export const changePassword: Handler = async (req, res) => {
   // Change password
   await services.setPassword(req, req.user.id, hashedPassword);
 
-  const message = translate(req)('passwordUpdated');
+  const message = req.t('passwordUpdated');
 
   // Return response
   return res.status(200).json({ message });

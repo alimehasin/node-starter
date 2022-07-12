@@ -3,7 +3,6 @@ import { ErrorRequestHandler } from 'express';
 import { Prisma } from '@prisma/client';
 import { ZodError } from 'zod';
 import SimpleError from './simple';
-import { translate } from '../i18n';
 import { ENVIRONMENT } from '../secrets';
 
 const types = {
@@ -15,8 +14,6 @@ const types = {
 };
 
 const errorHandler: ErrorRequestHandler = async (error, req, res, next) => {
-  const t = translate(req);
-
   if (ENVIRONMENT === 'development') {
     console.error(error);
   }
@@ -41,7 +38,7 @@ const errorHandler: ErrorRequestHandler = async (error, req, res, next) => {
   if (error instanceof AssertionError) {
     return res.status(500).json({
       _type: types.SERVER_ERROR,
-      detail: t('serverError'),
+      detail: req.t('serverError'),
     });
   }
 
